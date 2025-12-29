@@ -1153,7 +1153,7 @@ PAGE TOPボタン
   border-radius: 30px;
   padding: clamp(24px, 6vw, 50px);           /* paddingも画面幅に応じて可変 */
   width: min(1200px, calc(100% - clamp(24px, 6vw, 80px)));        /* 左右余白を可変（=窓の縮み方を統一） */
-  max-height: 80vh;                       /* 画面の 8 割まで */
+  max-height: 85vh;                       /* 画面の 8 割まで */
   box-sizing: border-box;
   position: relative;                     /* ×ボタンの基準にする */
   overflow: hidden;                       /* 全体スクロールはさせず、中の要素側で制御 */
@@ -1249,9 +1249,6 @@ PAGE TOPボタン
 
 /* 左カラム（タイトル＋タグ＋サムネ）の幅 */
 .modal-works-main {
-  /* flex: 0 0 400px;          左カラムの幅を固定（400px） */
-  /* width: 100%;      /* 左カラムの「400px固定」をやめて、範囲内で可変に */
-  /* max-width: 520px; 左が広がりすぎない上限（好みで） */
   flex: 0 0 clamp(280px, 42vw, 520px);
   min-width: 0;
 }
@@ -1267,14 +1264,14 @@ PAGE TOPボタン
   justify-content: center;
 }
 
-.modal-works--banner .modal-works-body {
+.modal-works-body--banner {
   display: grid;
   grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
   gap: clamp(16px, 2vw, 28px);
 }
 
 /* 左カラム（タイトル＋タグ＋サムネ）をバナー用に少し詰める */
-.modal-works--banner .modal-works-main {
+.modal-works-main--banner {
   flex: unset;
   max-width: none;
 }
@@ -1293,7 +1290,7 @@ PAGE TOPボタン
   flex: 1;
   height: 100%;     /* 同じく親に合わせる */
   /* max-height: calc(90vh - 100px);        90vh - 上50px - 下50px */
-  max-height: calc(80vh - (clamp(24px, 6vw, 50px) * 2));
+  max-height: calc(85vh - (clamp(24px, 6vw, 50px) * 2));
   
   min-width: 0;
   overflow-y: auto;  /* 右だけ中身スクロール */
@@ -1465,6 +1462,13 @@ PAGE TOPボタン
   display: flex;
   flex-direction: column;
   max-height: calc(90vh - 100px); /* 上下の余白ぶんを引いた高さ */
+}
+
+/* 右カラムだけスクロール（PC〜タブレット想定） */
+.modal-works-description{
+  overflow: auto;
+  max-height: 60vh;
+  padding-right: 6px;
 }
 
 /* タイトル・リード */
@@ -2110,13 +2114,59 @@ capabilities（横並びが厳しくなる幅）
   }
 }
 
+/* ======================
+modal共通（820pxで1カラム）
+====================== */
+/* 820以下で1カラム化 */
+@media (max-width: 820px){
+  .modal {
+    align-items: flex-start; /* center をやめる */
+    justify-content: center; /* 横は中央のままでOK */
+    padding: clamp(16px, 4vw, 28px); /* 上下左右の逃げ */
+    /*overflow-y: auto;  画面に収まらない時は「外枠」をスクロールさせられるように */
+    overflow: hidden; /* ← モーダル外はスクロールさせない（×がズレるの防止） */
+  }
+
+  .modal-works-main--wide{
+    width: 100%;
+  }
+
+  .modal-content {
+    margin-top: clamp(60px, 6vw, 80px);      /* closeとの距離を取る */
+    padding: clamp(40px, 6vw, 50px);
+    max-height: none;      /* ← 高さを内容量に任せる */
+    height: auto;
+    max-height: 85vh;
+    display: flex;       /* ← 中のスクロール要素を効かせるため */
+    flex-direction: column;
+  }
+
+  .modal-works {
+    overflow-y: auto;      /* ← 中にスクロールバーを置く */
+  }
+
+  /* 1カラム化（あなたの設計通り） */
+  .modal-works-body{
+    grid-template-columns: 1fr;
+    gap: 24px;
+
+    /* これが無いと「スクロールできない」事故が起きやすい */
+    min-height: 0;
+
+    /* スクロールバーが本文に食い込むのを防ぐ（任意） */
+    padding-right: 12px;
+    scrollbar-gutter: stable;
+  }
 
 
-@media (max-height: 600px){
-    .modal-content {
-    max-height: 70vh;       /* 高さが低い環境だけ、窓を少し低くして干渉を避ける */
+  /* 1カラム時は右だけスクロールをやめる */
+  .modal-works-description{
+    max-height: none;
+    overflow: visible;
+    padding-right: 0;
   }
 }
+
 
 
 
