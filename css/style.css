@@ -1678,7 +1678,7 @@ LP水回り
 
   /* セクション自体：上下は維持、左右はpolicy内側で管理 */
   #policy {
-    padding: 80px 0;
+    padding: 40px 0;   /* fvとの兼ね合いで80pxから変更している */
   }
 
   /* 1カラム化：縦積み */
@@ -1692,7 +1692,7 @@ LP水回り
     flex-direction: column;
     align-items: center;   /* 中央寄せ */
     justify-content: flex-start;
-    gap: 32px;             /* 画像とテキストの間 */
+    gap: 16px;             /* 画像とテキストの間　fvとの兼ね合いで32pxから変更している */
   }
 
   /* 画像：横幅は100%でOK（大きすぎるならmax-widthで締める） */
@@ -1714,7 +1714,7 @@ LP水回り
   }
 
   .policy-text h2 {
-    font-size: 24px;
+    font-size: clamp(20px, 5vw, 24px);   /* fvとの兼ね合いで24pxから変更している */
     line-height: 1.7;
     margin-bottom: 16px;
     text-align: center;
@@ -2008,7 +2008,7 @@ PC：769px以上
 /* ======================
 TAB：401px〜768px
 ====================== */
-@media (min-width: 401px) and (max-width: 768px) {
+@media (max-width: 768px) {
   .fv--tab {
     display: block;
   }
@@ -2016,12 +2016,14 @@ TAB：401px〜768px
 
 /* ======================
 SP：〜400px
-====================== */
+
 @media (max-width: 400px) {
   .fv--sp {
     display: block;
   }
 }
+====================== */
+
 
 /* 768px 以下 */
 @media (max-width: 768px) {
