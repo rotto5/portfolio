@@ -35,6 +35,15 @@ section {
   scroll-margin-top: 100px;
 }
 
+.anchor-top {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+/* あるいは普通に */
+#top { scroll-margin-top: 0; } /* こっちも推奨 */
+
 /* ======================
 section-card（共通：ベージュ箱）
 ====================== */
@@ -2148,7 +2157,7 @@ modal共通（820pxで1カラム）
   /* 1カラム化（あなたの設計通り） */
   .modal-works-body{
     grid-template-columns: 1fr;
-    gap: 24px;
+    gap: 40px;
 
     /* これが無いと「スクロールできない」事故が起きやすい */
     min-height: 0;
@@ -2158,6 +2167,10 @@ modal共通（820pxで1カラム）
     scrollbar-gutter: stable;
   }
 
+  .modal-works-main {
+    padding-inline: 20px; /* ←ここを下の見た目に合わせて調整 */
+    box-sizing: border-box;
+  }
 
   /* 1カラム時は右だけスクロールをやめる */
   .modal-works-description{
