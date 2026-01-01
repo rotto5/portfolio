@@ -25,12 +25,13 @@
   <body class="page-lp is-loaded">
     <header class="header">
       <div class="header-inner">
-
-        <a href="index.html" class="header-logo">
-          <img src="img/logo-w.png" alt="サイトロゴ">
+        <a href="index.html#top" class="header-logo" aria-label="トップへ">
+          <span class="header-logo__btn">
+            <img src="img/logo-w.png" alt="サイトロゴ">
+          </span>
         </a>
 
-        <nav class="header-nav">
+        <nav class="header-nav" aria-label="グローバルナビゲーション">
           <ul class="header-nav__list">
             <li class="header-nav__item">
               <a href="index.html#services" class="header-nav__link header-nav__link--services">
@@ -58,11 +59,67 @@
           </ul>
         </nav>
 
+        <!-- 追加：ハンバーガー（800px以下で表示） -->
+        <button
+          type="button"
+          class="header-hamburger"
+          aria-label="メニューを開く"
+          aria-controls="header-drawer"
+          aria-expanded="false"
+        >
+          <span class="header-hamburger__inner">
+            <span class="header-hamburger__line" aria-hidden="true"></span>
+            <span class="header-hamburger__line" aria-hidden="true"></span>
+            <span class="header-hamburger__line" aria-hidden="true"></span>
+          </span>
+        </button>
       </div>
-    </header>
 
+      <!-- 追加：ドロワー -->
+      <div id="header-drawer" class="header-drawer" aria-hidden="true">
+        <!-- 背景（押したら閉じる用） -->
+        <button type="button" class="header-drawer__overlay" aria-label="メニューを閉じる"></button>
+
+        <!-- メニュー本体（Figmaの生成りカード想定） -->
+        <div class="header-drawer__panel" role="dialog" aria-modal="true" aria-label="サイトメニュー">
+          <nav class="header-drawer-nav" aria-label="グローバルナビゲーション（SP）">
+            <ul class="header-drawer-nav__list">
+
+              <li class="header-drawer-nav__item">
+                <a href="index.html#top" class="header-drawer-nav__link header-drawer-nav__link--home">
+                  <img src="img/nav-home-red.svg" alt="HOME">
+                </a>
+              </li>
+              <li class="header-drawer-nav__item">
+                <a href="index.html#services" class="header-drawer-nav__link header-drawer-nav__link--services">
+                  <img src="img/nav-services-red.svg" alt="SERVICES">
+                </a>
+              </li>
+              <li class="header-drawer-nav__item">
+                <a href="index.html#about" class="header-drawer-nav__link header-drawer-nav__link--about">
+                  <img src="img/nav-about-red.svg" alt="ABOUT">
+                </a>
+              </li>
+              <li class="header-drawer-nav__item">
+                <a href="index.html#works" class="header-drawer-nav__link header-drawer-nav__link--works">
+                  <img src="img/nav-works-red.svg" alt="WORKS">
+                </a>
+              </li>
+              <li class="header-drawer-nav__item">
+                <a href="index.html#contact" class="header-drawer-nav__link header-drawer-nav__link--contact">
+                  <img src="img/nav-contact-red.svg" alt="CONTACT">
+                </a>
+              </li>
+            </ul>
+          </nav>
+        </div>
+      </div>
+
+    </header>
     
     <main>
+
+    <div class="wrapper">
 
       <section id="lp-mizumawari" class="lp-visual">
         <div class="lp-visual__inner">
@@ -72,39 +129,13 @@
             <p class="lp-visual__label modal-works-description__label">水回りトラブル対応サービスLP 全体図</p>
 
             <div class="lp-visual__body">
-              <!-- SPカラム -->
-              <div class="lp-visual__sp">
-                <p class="lp-visual__type">SP版</p>
-                <div class="lp-visual__img">
-                  <img src="img/lp-mizumawari_sp.png" alt="水回りLPのスマホ版全体図">
-                </div>
-
-                <!-- SP 追従バナー -->
-                <div class="lp-visual__follow">
-                  <p class="lp-visual__type lp-visual__type--sub">SP版 追従バナー</p>
-                  <div class="lp-visual__img">
-                    <img src="img/lp-mizumawari_follow_sp.png" alt="SP版 水回りLPの追従バナー">
-                  </div>
-                </div>
-              </div><!-- /.lp-visual__sp -->
-
-              <!-- PCカラム -->
-              <div class="lp-visual__pc">
-                <p class="lp-visual__type">ブラウザ版</p>
-                <div class="lp-visual__img">
-                  <img src="img/lp-mizumawari_pc.png" alt="水回りLPのブラウザ版全体図">
-                </div>
-
-                <!-- PC 追従バナー -->
-                <div class="lp-visual__follow">
-                  <p class="lp-visual__type lp-visual__type--sub">ブラウザ版 追従バナー</p>
-                  <div class="lp-visual__img">
-                    <img src="img/lp-mizumawari_follow_pc.png" alt="ブラウザ版 水回りLPの追従バナー">
-                  </div>
-                </div>
-              </div><!-- /.lp-visual__pc -->
-
-            </div><!-- /.lp-visual__body -->
+  <div class="lp-visual__img lp-visual__img--overview">
+    <img
+      src="img/lp-mizumawari-overview-sp-pc.webp"
+      alt="水回りトラブル対応サービスLP 全体図（SP・ブラウザ版）"
+    >
+  </div>
+</div>
 
           </div><!-- /.lp-visual__frame -->
 
@@ -120,11 +151,14 @@
           </svg>
         </a>
       </div>
-    </main>
-<!-- 多分htmlの構造が変わってるのでいくつか効いてないcssがある　wrapperじゃないかな？ -->
-    <footer> 
-      <p class="copyright">&copy; 2025 Chihiro Oka All rights reserved.</p>
-    </footer>
+
+    </div>  <!-- <div class="wrapper"> -->
+
+  </main>
+
+  <footer> 
+    <p class="copyright">&copy; 2025 Chihiro Oka All rights reserved.</p>
+  </footer>
 
     <script src="js/main.js"></script>
   </body>

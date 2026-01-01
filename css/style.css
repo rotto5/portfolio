@@ -1585,15 +1585,13 @@ footer p {
 LP水回り
 下層(lp-mizumawari.html）
 ====================== */
-/* 旧）#lp-mizumawari { ... } となっていた部分だけ修正 */
-/* LPページだけ、ヘッダーぶんの余白を足す */
-.page-lp #lp-mizumawari {
-  padding-top: 180px;  /* 30px(上からの位置) + 100px(ヘッダー高さ) + 余白50pxくらい */
-}
-
-#lp-mizumawari {
-  padding-top: 80px;
-  padding-bottom: 120px;
+/* LP用カード（section-cardと同思想） */
+.lp-visual {
+  max-width: 1200px;
+  margin-inline: auto;
+  width: 100%;
+  /* padding-block: 60px; */
+  padding-top: 180px;
 }
 
 /* --------------------------------------------------
@@ -1601,22 +1599,21 @@ LP水回り
   既存のstyle.cssの一番下あたりに足すイメージ
 -------------------------------------------------- */
 /* ▼ 中央寄せの箱（topの.section-inner的な役割） */
+/* 中身の左右余白 */
 .lp-visual__inner {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 0 40px;
-  position: relative;
+  margin-inline: auto;
+  width: 100%;
   display: flex;
-  flex-direction: column; /* ← これで縦積み確定！ */
-  gap: 20px; /* ラベルとの間に余白 */
+  flex-direction: column;
+  gap: 24px;
 }
 
 /* ▼ 「全体図」ラベル
-   見た目はmodal-works-description__labelを借りる
+   見た目はmodal-works-description__labelを借りるけど変更
 */
 .lp-visual__label {
-  margin-bottom: 24px;
-  /* display: inline-block; */
+  margin-block: 40px 0; /* 上だけ可変、下は0 */
+  margin-inline: clamp(24px, 5vw, 80px) 0; /* 左だけ可変、右は0 */
 }
 
 /* ▼ 白いフレーム（PC＋SP画像をまとめて入れる箱） */
@@ -1625,45 +1622,22 @@ LP水回り
   background-color: #FFF;
   border-radius: 30px;
   box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
-  padding: 40px;
   position: relative;
 }
 
 /* 画像の並びだけ flex にする */
 .lp-visual__body {
+  max-width: 960px; /* ←ここで“見せたい幅”を決める */
+  margin-inline: auto;   /* ★これ追加：中央寄せの本体 */
   display: flex;
-  gap: 40px;
+  gap: clamp(24px, 4vw, 40px);
+  padding: clamp(24px, 5vw, 80px);
+  justify-content: center;
 }
 
-/* ▼ SP版・PC版画像の共通スタイル */
-.lp-visual__sp img,
-.lp-visual__pc img {
-  display: block;
+.lp-visual__img img {
   width: 100%;
-  height: auto;
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
-  margin-top: 20px;
 }
-
-/* ▼ 左カラム（SP）の幅をちょっと細くする */
-.lp-visual__sp {
-  flex: 0 0 180px; /* 大体FigmaのSP幅に合わせた目安 */
-}
-
-/* ▼ 右カラム（PC）は残り全部使う */
-.lp-visual__pc {
-  flex: 1;
-}
-
-.lp-visual__follow {
-  margin-top: 50px;
-}
-
-.lp-visual__sp .lp-visual__follow {
-  margin-top: 20px;
-}
-
-
 
 /* ======================
 768pxレイアウト
@@ -1735,10 +1709,10 @@ services（768px以下：1カラム）
 ====================== */
 @media (max-width: 768px) {
 
-  /* innerの左右余白：SP寄りに安定させる（必要なら） */
+  /* innerの左右余白：SP寄りに安定させる（必要なら）
   #services .inner{
-    /* padding-inline: clamp(16px, 4vw, 28px); */
-  }
+    /* padding-inline: clamp(16px, 4vw, 28px);
+  } */
 
   /* 3カラム → 1カラム */
   .services-inner{
