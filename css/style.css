@@ -1590,8 +1590,7 @@ LP水回り
   max-width: 1200px;
   margin-inline: auto;
   width: 100%;
-  /* padding-block: 60px; */
-  padding-top: 180px;
+  margin-top: clamp(120px, 18vw, 180px); /* fvの数値参考にした */
 }
 
 /* --------------------------------------------------
