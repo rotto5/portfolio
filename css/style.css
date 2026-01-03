@@ -109,7 +109,7 @@ section-card（共通：ベージュ箱）
   padding-block: 25px;
   padding-inline: clamp(16px, 4.5vw, 80px);
   background-color: #BF3232;
-  border-radius: 9999px;
+  border-radius: 50px;
   display: flex;
   align-items: center;
   transition: background-color 0.6s ease;
@@ -298,8 +298,11 @@ section-card（共通：ベージュ箱）
   width: min(768px, calc(100vw - 48px));
   padding: 80px 28px;
   border-radius: 30px;
-  border: 1.5px solid #BF3232;
+  --panel-border-width: 1.5px;
+  border: var(--panel-border-width) solid #BF3232;   /* headerの角丸付近でpanelのborderが干渉するため、border幅ぶんだけ上に補正、変数は修正時のための定義 */
+  transform: translateY(calc(-1 * var(--panel-border-width)));
   background: #FFF;
+  z-index: 1; /* overlayより上にしたいなら 1、下にしたいなら消す */
 }
 
 .header-drawer-nav__list {
@@ -1939,7 +1942,10 @@ works（745px以下：1カラム）
 
 /* 500以下だけ、もう一段だけ薄くする */
 @media (max-width: 600px) {
-  .header-inner { height: 56px; }
+  .header-inner { 
+    height: 56px; 
+    padding-inline: 24px; /* clampのままでもいいけど、ここは固定の方が安定 */
+  }
 
   .header-logo,
   .header-logo__btn,
@@ -1955,10 +1961,6 @@ works（745px以下：1カラム）
   .header-logo__btn img {
     width: 34px;   /* ここは好みで 32〜36 */
     height: 34px;
-  }
-
-  .header-inner {
-    padding-inline: 24px; /* clampのままでもいいけど、ここは固定の方が安定 */
   }
 }
 

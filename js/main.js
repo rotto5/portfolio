@@ -101,31 +101,52 @@ window.addEventListener('scroll', () => {
 const hamburger = document.querySelector('.header-hamburger');
 const drawer = document.querySelector('.header-drawer');
 const drawerOverlay = document.querySelector('.header-drawer__overlay');
+const drawerLinks = document.querySelectorAll('.header-drawer a');
 
+// ▼ ブレークポイント（CSSと揃える）
+const mq = window.matchMedia('(max-width: 768px)');
+
+// ▼ 強制クローズ（状態を確実に揃える）
+function closeDrawer() {
+  hamburger?.classList.remove('is-active');
+  drawer?.classList.remove('is-active');
+}
+
+// ▼ 768pxを超えたらドロワーを強制的に閉じる
+function syncDrawerWithViewport(e) {
+  if (!e.matches) closeDrawer(); // PC幅になったら閉じる
+}
+
+// 初期同期（PC幅で読み込み時に残らない）
+syncDrawerWithViewport(mq);
+// ブレークポイントを跨いだ時だけ発火
+mq.addEventListener('change', syncDrawerWithViewport);
+
+// ハンバーガークリックで開閉（SP幅のときだけ）
 if (hamburger && drawer) {
-  // ハンバーガークリックで開閉
   hamburger.addEventListener('click', () => {
+    // PC幅では開かせない（詰み防止）
+    if (!mq.matches) return;
+
     hamburger.classList.toggle('is-active');
     drawer.classList.toggle('is-active');
   });
 }
 
-// 背景クリックで閉じる（任意だけどおすすめ）
-if (drawerOverlay) {
-  drawerOverlay.addEventListener('click', () => {
-    hamburger.classList.remove('is-active');
-    drawer.classList.remove('is-active');
-  });
-}
 
-// ドロワー内リンククリックで閉じる
-const drawerLinks = document.querySelectorAll('.header-drawer a');
+// ドロワー外をクリックで閉じる
+document.addEventListener('click', (e) => {
+  // ドロワーが開いていないなら何もしない
+  if (!drawer?.classList.contains('is-active')) return;
 
-drawerLinks.forEach(link => {
-  link.addEventListener('click', () => {
-    hamburger.classList.remove('is-active');
-    drawer.classList.remove('is-active');
-  });
+  // panel内をクリックしていたら何もしない
+  if (e.target.closest('.header-drawer__panel')) return;
+
+  // ハンバーガーボタン自体のクリックは除外（トグルと競合しないため）
+  if (e.target.closest('.header-hamburger')) return;
+
+  // それ以外 = panel外 → 閉じる
+  closeDrawer();
 });
 
 // works　実績を見るボタンの開閉
