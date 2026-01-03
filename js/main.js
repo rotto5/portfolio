@@ -56,14 +56,11 @@ if (lpSection) {
   scrollTrigger = lpSection.offsetTop + 50;
 }
 
-// スクロール量でヘッダーの状態を切り替え
-window.addEventListener('scroll', () => {
-  
+// スクロール量でヘッダーの状態を切り替え（スクロール処理を関数に切り出す）
+function updateHeaderState() {
   if (window.scrollY > scrollTrigger) {
     // ▼ スクロール後の状態
-    if (header) {
-      header.classList.add('header--scrolled');
-    }
+    header?.classList.add('header--scrolled');
 
     navImgs.forEach((img) => {
       const file = img.getAttribute('src');
@@ -76,25 +73,28 @@ window.addEventListener('scroll', () => {
       }
     });
 
-    if (logoImg) {
-      logoImg.setAttribute('src', 'img/logo-red.png');
-    }
+    logoImg?.setAttribute('src', 'img/logo-red.png');
 
   } else {
-    // ▼ 元の状態（赤ヘッダー）
-    if (header) {
-      header.classList.remove('header--scrolled');
-    }
+    // ▼ 元の状態
+    header?.classList.remove('header--scrolled');
 
     navImgs.forEach((img) => {
       const file = img.getAttribute('src');
       img.setAttribute('src', file.replace('-red.svg', '.svg'));
     });
 
-    if (logoImg) {
-      logoImg.setAttribute('src', 'img/logo-w.png');
-    }
+    logoImg?.setAttribute('src', 'img/logo-w.png');
   }
+}
+
+// scroll ではその関数を呼ぶだけにする
+window.addEventListener('scroll', updateHeaderState);
+
+// scrollTrigger が確定したあとに呼ぶ
+window.addEventListener('load', () => {
+  updateScrollTrigger();   // 既存
+  updateHeaderState();     // ← これを追加
 });
 
 // ハンバーガー＆ドロワー
