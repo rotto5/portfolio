@@ -149,7 +149,10 @@ document.addEventListener('click', (e) => {
   closeDrawer();
 });
 
+// =============================
 // works　実績を見るボタンの開閉
+// =============================
+
 // ボタンを 1 つだけ取る
 const toggleBtn = document.querySelector('#worksToggleBtn');
 
@@ -177,7 +180,7 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 // =============================
-//  WORKS モーダル（共通処理版）
+//  works モーダル（共通処理版）
 // =============================
 
 // 1) すべての「詳しく見る」カード／ボタン

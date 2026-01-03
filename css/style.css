@@ -17,6 +17,12 @@ body {
   background-size: auto;  /* そのままタイルする場合 */
 }
 
+/* SPだけ密度UP */
+@media (max-width: 400px) {
+  body {
+    background-size: 40px 40px; /* まずは32あたりが効きやすい */
+  }
+}
 .wrapper {
   max-width: 1440px;
   margin: 0 auto;
