@@ -241,12 +241,11 @@ modalCards.forEach((card) => {
 });
 
 // =====================
-// CONTACT 確認モーダル
+// CONTACT 確認モーダル（worksと同じ開閉に統一）
 // =====================
-const contactForm = document.querySelector('.contact-form');
-const confirmModal = document.getElementById('confirmModal');
+const contactForm   = document.querySelector('.contact-form');
+const confirmModal  = document.getElementById('confirmModal');
 
-// モーダル内の要素たち
 const confirmName    = document.getElementById('confirm-name');
 const confirmCompany = document.getElementById('confirm-company');
 const confirmEmail   = document.getElementById('confirm-email');
@@ -257,16 +256,15 @@ const backToFormBtn  = document.getElementById('backToForm');
 const submitFinalBtn = document.getElementById('submitFinal');
 
 if (contactForm && confirmModal) {
+  const modalContent  = confirmModal.querySelector('.modal-content');
+  const modalCloseBtn = confirmModal.querySelector('.modal-close');
 
-  // 「内容を確認する」ボタン → モーダルを開く
+  // 「内容を確認する」→ モーダルを開く
   contactForm.addEventListener('submit', (e) => {
-    // まずブラウザ標準の required チェック
-    if (!contactForm.checkValidity()) {
-      // ブラウザに任せたいので、ここでは何もしない
-      return;
-    }
+    // requiredチェック
+    if (!contactForm.checkValidity()) return;
 
-    e.preventDefault(); // いったん送信ストップ
+    e.preventDefault(); // 送信ストップ（確認モーダル出すため）
 
     // 入力値をモーダルに流し込む
     confirmName.textContent    = contactForm.name.value || '（未入力）';
@@ -275,29 +273,111 @@ if (contactForm && confirmModal) {
     confirmTel.textContent     = contactForm.tel.value || '（未入力）';
     confirmMessage.textContent = contactForm.message.value || '（未入力）';
 
-    // モーダル表示
-    confirmModal.classList.add('is-active');
+    // worksと同じ開き方
+    openModal(confirmModal);
   });
 
-  // 「戻る」→ モーダルを閉じるだけ
-  if (backToFormBtn) {
-    backToFormBtn.addEventListener('click', () => {
-      confirmModal.classList.remove('is-active');
-    });
+  // 「戻る」→ 閉じる（worksと同じ）
+  backToFormBtn?.addEventListener('click', () => {
+    closeModal(confirmModal);
+  });
+
+  // 「送信する」→ fetchに差し替えた
+  submitFinalBtn?.addEventListener('click', async () => {
+  const endpoint = contactForm.dataset.endpoint;
+  if (!endpoint) {
+    console.warn('data-endpoint が見つからないよ');
+    return;
   }
 
-  // 「送信する」→ 本物のフォーム送信
-  if (submitFinalBtn) {
-    submitFinalBtn.addEventListener('click', () => {
-      contactForm.submit(); // ここはもう modal は触らず素直に送信
-    });
-  }
+  // 二重送信防止（押せないようにする）
+  submitFinalBtn.disabled = true;
+  submitFinalBtn.textContent = '送信中…';
 
-  // 右上の × ボタンでも閉じる
-  const confirmCloseBtn = confirmModal.querySelector('.modal-close');
-  if (confirmCloseBtn) {
-    confirmCloseBtn.addEventListener('click', () => {
-      confirmModal.classList.remove('is-active');
+  try {
+    const formData = new FormData(contactForm);
+
+    const res = await fetch(endpoint, {
+      method: 'POST',
+      body: formData,
+      headers: { Accept: 'application/json' },
     });
+
+    if (!res.ok) {
+      console.error('送信失敗:', res.status, res.statusText);
+      // ここは今はアラートでOK（後でデザインしても良い）
+      alert('送信に失敗しました。時間をおいて再度お試しください。');
+      return;
+    }
+
+    // ✅ 成功：confirm閉じる → thanks開く
+    closeModal(confirmModal);
+    openModal(thanksModal);
+
+    // フォーム内容をリセット（任意）
+    contactForm.reset();
+
+  } catch (err) {
+    console.error('送信エラー:', err);
+    alert('送信中にエラーが発生しました。通信状況をご確認ください。');
+  } finally {
+    submitFinalBtn.disabled = false;
+    submitFinalBtn.textContent = '送信する';
   }
+  });
+
+  // ×で閉じる（worksと同じ）
+  modalCloseBtn?.addEventListener('click', () => {
+    closeModal(confirmModal);
+  });
+
+  // 背景クリックで閉じる（worksと同じ）
+  confirmModal.addEventListener('click', (e) => {
+    if (modalContent && !modalContent.contains(e.target)) {
+      closeModal(confirmModal);
+    }
+  });
 }
+
+// =====================
+// CONTACT THANKYOU モーダル
+// =====================
+const thanksModal   = document.getElementById('thanksModal');
+const backToTopBtn  = document.getElementById('backToTop');
+
+if (thanksModal) {
+  const modalContent  = thanksModal.querySelector('.modal-content');
+  const modalCloseBtn = thanksModal.querySelector('.modal-close');
+
+  // ×で閉じる（worksと同じ）
+  modalCloseBtn?.addEventListener('click', () => {
+    closeModal(thanksModal);
+  });
+
+  // 背景クリックで閉じる（worksと同じ）
+  thanksModal.addEventListener('click', (e) => {
+    if (modalContent && !modalContent.contains(e.target)) {
+      closeModal(thanksModal);
+    }
+  });
+
+  // TOPへ戻る
+  backToTopBtn?.addEventListener('click', () => {
+    closeModal(thanksModal);
+
+    // ここは好み：#top があるならアンカーへ、なければ先頭へ
+    const topAnchor = document.getElementById('top');
+    if (topAnchor) {
+      topAnchor.scrollIntoView({ behavior: 'smooth' });
+    } else {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+  });
+}
+
+
+
+// dontact　確認
+document.getElementById('debugOpenThanks')?.addEventListener('click', () => {
+  document.getElementById('thanksModal').classList.add('is-active');
+});

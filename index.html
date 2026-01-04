@@ -701,9 +701,8 @@
             必須の項目は必ずご記入をお願いいたします。
           </p>
 
-          <form action="mail.php" method="post" class="contact-form">
-
-            <!-- お名前（必須） -->
+          <form class="contact-form" data-endpoint="https://getform.io/f/bkkepkqb">
+            
             <div class="form-group">
               <label for="name" class="form-label">
                 お名前
@@ -1555,10 +1554,10 @@
             </dl>
 
             <div class="modal-contact__buttons">
-              <button class="modal-btn modal-btn--back" id="backToForm">
+              <button type="button" class="modal-btn modal-btn--back" id="backToForm">
                 戻る
               </button>
-              <button class="modal-btn modal-btn--submit" id="submitFinal">
+              <button type="button" class="modal-btn modal-btn--submit" id="submitFinal">
                 送信する
               </button>
             </div>
@@ -1577,21 +1576,13 @@
       <div id="thanksModal" class="modal" aria-hidden="true">
         <div class="modal-content">
 
-          <!-- 閉じるボタン（共通） -->
-          <button
-            type="button"
-            class="modal-close"
-            data-modal-close
-            aria-label="モーダルを閉じる">
-          </button>
-
           <!-- 中身全部 -->
           <div class="modal-thanks">
 
             <!-- ① 上のタイトルブロック（THANK YOU画像＋見出し） -->
             <div class="modal-thanks__header">
               <p class="modal-thanks__logo">
-                <img src="img/contact-thanks-logo.png" alt="THANK YOU!">
+                <img src="img/contact-thanks-logo.svg" alt="THANK YOU!">
               </p>
               <p class="modal-thanks__heading">
                 お問い合わせありがとうございました。
@@ -1623,9 +1614,11 @@
           </div><!-- /.modal-thanks -->
 
         </div><!-- /.modal-content -->
+      <!-- 閉じるボタン -->
+      <button type="button" class="modal-close" aria-label="モーダルを閉じる"></button>
       </div><!-- /#thanksModal -->
 
-      
+    <button id="debugOpenThanks">THANK YOU表示</button>
 
     <footer> 
       <p class="copyright">&copy; 2025 Chihiro Oka All rights reserved.</p>
