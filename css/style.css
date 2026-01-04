@@ -1613,6 +1613,20 @@ PAGE TOPボタン
   .modal-contact__row dd {
     padding-left: 12px;
   }
+
+  .modal-contact__buttons {
+    flex-direction: column;
+    align-items: center; /* ボタンを中央へ */
+    gap: 12px;
+  }
+
+  .modal-contact__buttons .modal-btn {
+    width: min(100%, 320px); /* ほどよく横に広い */
+  }
+
+  .modal-btn--submit {
+    order: -1;
+  }
 }
 
 /* ======================
