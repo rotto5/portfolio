@@ -149,6 +149,13 @@ document.addEventListener('click', (e) => {
   closeDrawer();
 });
 
+// ドロワー内リンクをクリックしたら閉じる
+drawerLinks.forEach(link => {
+  link.addEventListener('click', () => {
+    closeDrawer();
+  });
+});
+
 // =============================
 // works　実績を見るボタンの開閉
 // =============================

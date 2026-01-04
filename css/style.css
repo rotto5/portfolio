@@ -1475,7 +1475,6 @@ PAGE TOPボタン
    CONTACT 確認モーダル
    （中身だけスクロール）
 ====================== */
-
 /* このモーダルだけカード幅を少し細くする */
 #confirmModal .modal-content {
   max-width: 900px;       /* お好みで 800〜900px くらいでもOK */
@@ -1542,7 +1541,10 @@ PAGE TOPボタン
 
 .modal-contact__row dd {
   margin: 0;
-  white-space: pre-wrap;   /* textarea の改行をそのまま表示 */
+  white-space: pre-wrap;      /* 改行保持（今のままでOK） */
+  overflow-wrap: anywhere;    /* 長い英数字も強制的に折る */
+  word-break: break-word;     /* 保険（古めブラウザ寄り） */
+  min-width: 0;               /* grid/flex内で“はみ出し”防止 */
 }
 
 /* ボタン並び（カード下部に固定されるイメージ） */
@@ -1592,10 +1594,74 @@ PAGE TOPボタン
 }
 
 .modal-btn:disabled::after {
-  /* content: '（送信中）'; */
   font-size: 0.75em;
   margin-left: 0.5em;
 }
+
+/*  */
+@media (max-width: 480px) {
+  .modal-contact__row {
+    grid-template-columns: 1fr; /* 縦積み */
+    row-gap: 4px;
+    padding: 12px 0;
+  }
+
+  .modal-contact__row dt {
+    padding-left: 12px;
+  }
+
+  .modal-contact__row dd {
+    padding-left: 12px;
+  }
+}
+
+/* ======================
+  CONTACT THANK YOUモーダル
+====================== */
+.modal-thanks__header {
+  text-align: center;
+}
+
+.modal-thanks {
+  padding: clamp(18px, 4vw, 56px);
+}
+
+.modal-thanks__logo img {
+  width: clamp(200px, 40vw, 360px);
+  height: auto;
+  display: block;
+  margin-inline: auto;
+}
+
+.modal-thanks__heading {
+  margin-top: 12px;   /* 8〜12px がおすすめ */
+  font-weight: 500;
+  font-size: clamp(14px, 2.4vw, 20px);
+  line-height: 1.6;
+}
+
+.modal-thanks__message {
+  margin-top: 32px;
+  max-width: 600px;      /* 好きな読みやすい幅 */
+  margin-inline: auto;   /* ブロック自体を中央へ */
+}
+
+.modal-thanks__message p {
+  font-size: clamp(14px, 1.6vw, 16px);
+  line-height: 1.8;
+}
+
+.modal-thanks__buttons {
+  text-align: center;
+  margin-top: 40px;
+  /* margin-inline: auto; */
+  /* background-color: #FDF6E8; */
+}
+
+#thanksModal .modal-btn--back {
+  background-color: #FDF6E8;
+}
+
 
 /* ======================
 フッター
@@ -1614,7 +1680,7 @@ footer p {
 
 /* ======================
 LP水回り
-下層(lp-mizumawari.html）
+下層(mizumawari.html）
 ====================== */
 /* LP用カード（section-cardと同思想） */
 .lp-visual {
