@@ -266,6 +266,50 @@ if (contactForm && confirmModal) {
   const modalContent  = confirmModal.querySelector('.modal-content');
   const modalCloseBtn = confirmModal.querySelector('.modal-close');
 
+// confirmの状態リセット（エラー文＆ボタン）
+function resetSubmitError() {
+  const el = document.getElementById('submitError');
+  if (!el) return;
+  el.textContent = '';
+  el.hidden = true;        // ← ここ大事
+}
+
+function showSubmitError(message) {
+  const el = document.getElementById('submitError');
+  if (!el) return;
+  el.textContent = message;
+  el.hidden = false;
+  el.style.display = 'block';
+}
+
+function resetConfirmState() {
+  const el = document.getElementById('submitError');
+  if (el) {
+    el.textContent = '';
+    el.hidden = true;
+    el.style.display = 'none';
+  }
+  submitFinalBtn.disabled = false;
+  submitFinalBtn.textContent = '送信する';
+}
+
+backToFormBtn?.addEventListener('click', () => {
+  resetConfirmState();
+  closeModal(confirmModal);
+});
+
+modalCloseBtn?.addEventListener('click', () => {
+  resetConfirmState();
+  closeModal(confirmModal);
+});
+
+confirmModal.addEventListener('click', (e) => {
+  if (modalContent && !modalContent.contains(e.target)) {
+    resetConfirmState();
+    closeModal(confirmModal);
+  }
+});
+
   // 「内容を確認する」→ モーダルを開く
   contactForm.addEventListener('submit', (e) => {
     // requiredチェック
@@ -280,12 +324,19 @@ if (contactForm && confirmModal) {
     confirmTel.textContent     = contactForm.tel.value || '（未入力）';
     confirmMessage.textContent = contactForm.message.value || '（未入力）';
 
+    // ✅ confirmを開くたびにエラー初期化
+  resetSubmitError();
+
     // worksと同じ開き方
     openModal(confirmModal);
   });
 
   // 「戻る」→ 閉じる（worksと同じ）
   backToFormBtn?.addEventListener('click', () => {
+    resetSubmitError();
+    if (confirmModal.contains(document.activeElement)) {
+    document.activeElement.blur();
+    }
     closeModal(confirmModal);
   });
 
@@ -297,9 +348,12 @@ if (contactForm && confirmModal) {
     return;
   }
 
-  // 二重送信防止（押せないようにする）
+  // 二重送信防止
   submitFinalBtn.disabled = true;
   submitFinalBtn.textContent = '送信中…';
+
+  // 送信開始時はエラーを消す（hiddenだけで管理）
+  resetSubmitError();
 
   try {
     const formData = new FormData(contactForm);
@@ -312,12 +366,11 @@ if (contactForm && confirmModal) {
 
     if (!res.ok) {
       console.error('送信失敗:', res.status, res.statusText);
-      // ここは今はアラートでOK（後でデザインしても良い）
-      alert('送信に失敗しました。時間をおいて再度お試しください。');
+      showSubmitError('送信に失敗しました。時間をおいて再度お試しください。');
       return;
     }
 
-    // ✅ 成功：confirm閉じる → thanks開く
+    // 成功：confirm閉じる → thanks開く
     closeModal(confirmModal);
     openModal(thanksModal);
 
@@ -326,21 +379,29 @@ if (contactForm && confirmModal) {
 
   } catch (err) {
     console.error('送信エラー:', err);
-    alert('送信中にエラーが発生しました。通信状況をご確認ください。');
+    showSubmitError('送信中にエラーが発生しました。通信状況をご確認ください。');
   } finally {
     submitFinalBtn.disabled = false;
     submitFinalBtn.textContent = '送信する';
   }
-  });
+});
 
   // ×で閉じる（worksと同じ）
   modalCloseBtn?.addEventListener('click', () => {
+    resetSubmitError();
+    if (confirmModal.contains(document.activeElement)) {
+    document.activeElement.blur();
+    }
     closeModal(confirmModal);
   });
 
   // 背景クリックで閉じる（worksと同じ）
   confirmModal.addEventListener('click', (e) => {
     if (modalContent && !modalContent.contains(e.target)) {
+      resetSubmitError();
+      if (confirmModal.contains(document.activeElement)) {
+      document.activeElement.blur();
+      }
       closeModal(confirmModal);
     }
   });

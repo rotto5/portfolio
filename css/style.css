@@ -1598,7 +1598,19 @@ PAGE TOPボタン
   margin-left: 0.5em;
 }
 
-/*  */
+/* 送信失敗時のメッセージ */
+.modal-contact__error {
+  margin: 0 0 16px;
+  padding: 12px 14px;
+  border: 1px solid #BF3232;
+  border-radius: 12px;
+  color: #BF3232;
+  background: #fff7f7;
+  font-size: 0.9rem;
+  line-height: 1.6;
+}
+
+/* 480px以下でconfirm画面を1frに変える */
 @media (max-width: 480px) {
   .modal-contact__row {
     grid-template-columns: 1fr; /* 縦積み */
@@ -1625,7 +1637,7 @@ PAGE TOPボタン
   }
 
   .modal-btn--submit {
-    order: -1;
+    order: -1;  /* btnの順番を変える（ここでは「送信」の方を先にする） */
   }
 }
 
@@ -1641,7 +1653,7 @@ PAGE TOPボタン
 }
 
 .modal-thanks__logo img {
-  width: clamp(200px, 40vw, 360px);
+  width: clamp(200px, 55vw, 360px);
   height: auto;
   display: block;
   margin-inline: auto;
@@ -1650,7 +1662,7 @@ PAGE TOPボタン
 .modal-thanks__heading {
   margin-top: 12px;   /* 8〜12px がおすすめ */
   font-weight: 500;
-  font-size: clamp(14px, 2.4vw, 20px);
+  font-size: 1.25rem;
   line-height: 1.6;
 }
 
@@ -1661,21 +1673,56 @@ PAGE TOPボタン
 }
 
 .modal-thanks__message p {
-  font-size: clamp(14px, 1.6vw, 16px);
+  /* font-size: clamp(14px, 1.6vw, 16px); */
+  font-size: 0.9rem;
   line-height: 1.8;
 }
 
 .modal-thanks__buttons {
   text-align: center;
   margin-top: 40px;
-  /* margin-inline: auto; */
-  /* background-color: #FDF6E8; */
 }
 
 #thanksModal .modal-btn--back {
   background-color: #FDF6E8;
 }
 
+/* confirm thanks画面設定 */
+@media (max-width: 820px){
+  #confirmModal .modal-content,
+  #thanksModal .modal-content{
+    margin-top: 0;
+
+  }
+
+  #confirmModal.modal.is-active,
+  #thanksModal.modal.is-active{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 60px 16px;
+  }
+
+  #confirmModal .modal-content,
+  #thanksModal .modal-content{
+    max-height: calc(100dvh - 120px);
+    overflow: auto;
+  }
+}
+
+@media (max-width: 480px) {
+  #confirmModal.modal.is-active,
+  #thanksModal.modal.is-active{
+    padding-top: 88px;  /* close避け。60→88 みたいに増やす */
+    padding-bottom: 24px;
+  }
+
+  #confirmModal .modal-content,
+  #thanksModal .modal-content{
+    max-height: calc(100dvh - 80px);
+    overflow: auto;
+  }
+}
 
 /* ======================
 フッター
@@ -2232,7 +2279,7 @@ modal共通（820pxで1カラム）
     padding: clamp(40px, 6vw, 50px);
     max-height: none;      /* ← 高さを内容量に任せる */
     height: auto;
-    max-height: 85vh;
+    max-height: calc(100dvh - 120px); /* padding 60px×2 ぶん引く */
     display: flex;       /* ← 中のスクロール要素を効かせるため */
     flex-direction: column;
   }
@@ -2266,7 +2313,6 @@ modal共通（820pxで1カラム）
     padding-right: 0;
   }
 }
-
 
 
 
