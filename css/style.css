@@ -2093,6 +2093,12 @@ works（745px以下：1カラム）
   .header--scrolled .header-inner {
     background-color: #FFF;
   }
+
+  /* カプセル時：hoverでlogoを薄くしない */
+  .header-nav__link:hover,
+  .header-logo:hover {
+    opacity: 1;
+  }
 }
 
 /* 500以下だけ、もう一段だけ薄くする */
@@ -2138,23 +2144,23 @@ PC：769px以上
 }
 
 /* ======================
-TAB：401px〜768px
+TAB：501px〜768px
 ====================== */
-@media (max-width: 768px) {
-  .fv--tab {
-    display: block;
+@media (min-width: 501px) and (max-width: 768px) {
+  .fv--tab { 
+    display: block; 
   }
 }
 
 /* ======================
-SP：〜400px
-
-@media (max-width: 400px) {
-  .fv--sp {
-    display: block;
-  }
-}
+SP：〜500px
 ====================== */
+@media (max-width: 500px) {
+  .fv--sp { 
+    display: block;
+   }
+}
+
 
 
 /* 768px 以下 */
