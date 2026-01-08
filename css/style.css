@@ -447,20 +447,15 @@ body.is-loaded .fv .fv-inner {
   animation: fv-rotate 20s linear infinite;
 }
 
+ .fv-icon--sun-sub {
+  animation: fv-rotate-reverse 15s linear infinite;
+ }
+
 /* ▼ 初期状態：下からふわっと出てくる FV 本体 */
 .fv-inner {
   opacity: 0;
   transform: translateY(20px); /* ちょっと下にずらしておく */
 }
-
-/*.fv-icon--star {
- animation: fv-rotate 15s linear infinite;
-}
-.fv-icon--star {
-  transform-origin: 50% 50%;
-  animation: rotateSometimes 12s infinite;
-}*/
-
 
 /* @keyframes系はfv-innerで指定されていて上書きできない
 （同じブロックでは設定できないのでSVGは階層を分ける？ */
@@ -819,7 +814,7 @@ about
   margin-top: 120px;
   /* margin: 120px 120px 0; */
   /* padding: 80px; */
-  background-color: #FFF6E8;
+  background-color: #FDF6E8;
   border-radius: 30px;
 }
 
@@ -1421,7 +1416,7 @@ PAGE TOPボタン
   align-self: center;   /* 親の中でボタンだけ水平中央 */
   margin-top: clamp(16px, 3vw, 32px);
   padding: clamp(12px, 2vw, 18px) clamp(20px, 4vw, 40px);
-  border-radius: 9999px;
+  border-radius: 50px;
   border: 2px solid #BF3232;
   background-color: #FDF6E8;
   color: #BF3232;
@@ -1559,7 +1554,7 @@ PAGE TOPボタン
 .modal-btn {
   min-width: 150px;
   padding: 12px 24px;
-  border-radius: 9999px;
+  border-radius: 50px;
   border: 1px solid #bf3232;
   font-size: 0.9rem;
   cursor: pointer;
