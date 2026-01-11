@@ -156,6 +156,53 @@ drawerLinks.forEach(link => {
   });
 });
 
+// ==============================
+// Policy section animation
+// ==============================
+const policySection = document.querySelector('#policy');
+
+if (policySection) {
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          policySection.classList.add('is-animated');
+          observer.unobserve(policySection); // 一度きり
+        }
+      });
+    },
+    {
+      threshold: 0.4
+    }
+  );
+
+  observer.observe(policySection);
+}
+
+// ==============================
+// Scroll アニメーション
+// （section＋section-divider共通）
+// ==============================
+const revealTargets = document.querySelectorAll('.js-reveal');
+
+if (revealTargets.length) {
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('is-animated');
+          observer.unobserve(entry.target); // 一度きり
+        }
+      });
+    },
+    {
+      threshold: 0.1
+    }
+  );
+
+  revealTargets.forEach(el => observer.observe(el));
+}
+
 // =============================
 // works　実績を見るボタンの開閉
 // =============================

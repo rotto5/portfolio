@@ -33,7 +33,8 @@ body {
     background-image:
       linear-gradient(to right, var(--line) 0.5px, transparent 0.5px),
       linear-gradient(to bottom, var(--line) 0.5px, transparent 0.5px);
-    background-size: 32px 32px;   }
+    background-size: 32px 32px;
+  }
 }
 
 .wrapper {
@@ -106,6 +107,20 @@ section-card（共通：ベージュ箱）
   display: block;
   margin-top: 10px;
   font-size: clamp(16px, 3.5vw, 20px);
+}
+
+/* アニメーション（共通） */
+.js-reveal {
+  opacity: 0;
+  transform: translateY(12px);
+  transition:
+    opacity 0.6s ease-out,
+    transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.js-reveal.is-animated {
+  opacity: 1;
+  transform: translateY(0);
 }
 
 /* ======================
@@ -586,12 +601,36 @@ policy
   line-height: 2;
 }
 
+/* policy アニメーション */
+/* policy 初期状態 */
+#policy .policy-image,
+#policy .policy-text {
+  opacity: 0;
+  transform: translateY(28px);
+  transition:
+    opacity 0.7s ease-out,
+    transform 1.2s cubic-bezier(0.12, 1, 0.25, 1); /* ★ここだけ長く */
+}
+
+/* 少し時間差 */
+#policy .policy-text {
+  transition-delay: 0.12s;
+}
+
+/* 発火後 */
+#policy.is-animated .policy-image,
+#policy.is-animated .policy-text {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+
 /* ======================
 services
 ====================== */
 /* ▼ services セクション全体 */
 #services {
-  margin-top: 120px;
+  margin-top: clamp(64px, 10vw, 120px);
   /*margin: 120px 120px 0;  上120 / 左右120 / 下は自動 */
   /* padding: 80px; */
   /* background-color: #FFF6E8;
@@ -811,7 +850,7 @@ capability
 about
 ====================== */
 #about {
-  margin-top: 120px;
+  margin-top: clamp(64px, 10vw, 120px);
   /* margin: 120px 120px 0; */
   /* padding: 80px; */
   background-color: #FDF6E8;
@@ -891,7 +930,7 @@ works
 ====================== */
 /* セクション自体の箱（他セクションと同じルール） */
 #works {
-  margin-top: 120px;
+  margin-top: clamp(64px, 10vw, 120px);
   /* margin: 120px 120px 0; */
   /* padding: 80px; */
   background-color: #FDF6E8;
@@ -1004,7 +1043,7 @@ works
 contact
 ====================== */
 #contact {
-  margin-top: 120px;
+  margin-top: clamp(64px, 10vw, 120px);
   /* margin: 120px 120px 0; */
   /* padding: 80px; */
   background-color: #FDF6E8;
@@ -1163,7 +1202,12 @@ PAGE TOPボタン
 .modal {
   position: fixed;
   inset: 0;                               /* top/right/bottom/left: 0 の短縮 */
-  display: none;                          /* まずは非表示 */
+
+  display: flex;                          /* アニメーション表示のためnoneをfkexに */
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+
   align-items: center;
   justify-content: center;
   background-color: rgba(0, 0, 0, 0.7);   /* うっすら黒背景 */
@@ -1173,6 +1217,9 @@ PAGE TOPボタン
 /* JS で .is-active が付いたら表示する */
 .modal.is-active {
   display: flex;
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
 }
 
 /* 中身のカード部分（白いウィンドウ） */
@@ -1185,6 +1232,13 @@ PAGE TOPボタン
   box-sizing: border-box;
   position: relative;                     /* ×ボタンの基準にする */
   overflow: hidden;                       /* 全体スクロールはさせず、中の要素側で制御 */
+
+  opacity: 0;
+  transition: opacity 0.8s ease;
+}
+
+.modal.is-active .modal-content {
+  opacity: 1;
 }
 
 /* モーダル全体の文字ルール（h3/h4 は太らせない） */
@@ -1806,7 +1860,7 @@ LP水回り
 
   /* セクション自体：上下は維持、左右はpolicy内側で管理 */
   #policy {
-    padding: 40px 0;   /* fvとの兼ね合いで80pxから変更している */
+    padding: 80px 0;   /* fvとの兼ね合いで80pxから変更している */
   }
 
   /* 1カラム化：縦積み */
