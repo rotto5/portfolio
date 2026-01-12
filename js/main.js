@@ -1,8 +1,3 @@
-// 主にメニュー画面の設定
-document.addEventListener('DOMContentLoaded', () => {
-  console.log("main.js loaded");
-});
-
 // =============================
 // headerの変更
 // =============================
@@ -15,44 +10,35 @@ const logoImg  = document.querySelector('.header-logo img');
 const policy = document.querySelector('#policy');
 const headerInner = document.querySelector('.header-inner');
 
-// ① FVを取る（#top が fv セクション）
+// 1) FVを取る（#top が fv セクション）
 const fv = document.querySelector('#top');
 
 // ▼ ページごとの「切り替え位置」を決める
-let scrollTrigger = 700; // ← これは保険として残してOK（fvが取れない時用）
+let scrollTrigger = 700;
 
-// ② policy上端を元にトリガーを更新する関数
+// 2) policy上端を元にトリガーを更新する関数
 function updateScrollTrigger() {
   if (!policy || !headerInner) return;
 
-  // policy のページ内での位置
   const policyTop = policy.getBoundingClientRect().top + window.scrollY;
 
-  // ヘッダーの実高さ（clamp / media query 反映後）
   const headerHeight = headerInner.offsetHeight;
 
-  // header は top:30px なのでその分も考慮
   const headerTopOffset = 30;
 
-  // ▼ 切り替えライン
   scrollTrigger = policyTop - headerHeight - headerTopOffset;
 }
 
-// ③ 初回に計算（画像読み込み等で高さが変わるので load が強い）
+// 3) 初回に計算（画像読み込み等で高さが変わるので load が強い）
 window.addEventListener('load', updateScrollTrigger);
 
-// ④ リサイズでも更新（ここが超重要）
+// 4) リサイズでも更新（ここが超重要）
 window.addEventListener('resize', updateScrollTrigger);
 
-// ⑤ ついでに：スクロール時に毎回計算したくないので基本しない
-// （もしFV内で高さがアニメで変わる等なら scroll内で再計算が必要だけど、通常は不要）
-
-// LP用のセクションがあれば、そっちを優先
+// 5) スクロール時に毎回計算しない
 const lpSection = document.getElementById('lp-mizumawari');
 
 if (lpSection) {
-  // sectionの少しスクロールしたあたりで切り替えたいイメージ
-  // 値は見ながら 30〜100px くらいで調整してOK
   scrollTrigger = lpSection.offsetTop + 50;
 }
 
@@ -93,8 +79,8 @@ window.addEventListener('scroll', updateHeaderState);
 
 // scrollTrigger が確定したあとに呼ぶ
 window.addEventListener('load', () => {
-  updateScrollTrigger();   // 既存
-  updateHeaderState();     // ← これを追加
+  updateScrollTrigger(); 
+  updateHeaderState();
 });
 
 // ハンバーガー＆ドロワー
@@ -114,7 +100,7 @@ function closeDrawer() {
 
 // ▼ 768pxを超えたらドロワーを強制的に閉じる
 function syncDrawerWithViewport(e) {
-  if (!e.matches) closeDrawer(); // PC幅になったら閉じる
+  if (!e.matches) closeDrawer();
 }
 
 // 初期同期（PC幅で読み込み時に残らない）
@@ -132,7 +118,6 @@ if (hamburger && drawer) {
     drawer.classList.toggle('is-active');
   });
 }
-
 
 // ドロワー外をクリックで閉じる
 document.addEventListener('click', (e) => {
@@ -157,7 +142,7 @@ drawerLinks.forEach(link => {
 });
 
 // ==============================
-// Policy section animation
+// Policy section アニメーション
 // ==============================
 const policySection = document.querySelector('#policy');
 
@@ -167,7 +152,7 @@ if (policySection) {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
           policySection.classList.add('is-animated');
-          observer.unobserve(policySection); // 一度きり
+          observer.unobserve(policySection);
         }
       });
     },
@@ -191,7 +176,7 @@ if (revealTargets.length) {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
           entry.target.classList.add('is-animated');
-          observer.unobserve(entry.target); // 一度きり
+          observer.unobserve(entry.target);
         }
       });
     },
@@ -229,7 +214,6 @@ toggleBtn.addEventListener('click', () => {
 
 // FV　アニメーション
 document.addEventListener('DOMContentLoaded', () => {
-  console.log("main.js loaded");
   document.body.classList.add('is-loaded');
 });
 
@@ -269,7 +253,6 @@ modalCards.forEach((card) => {
 
   // 対応するモーダルがなかったらスキップ
   if (!modal) {
-    console.warn('対応するモーダルが見つからないよ：', key);
     return;
   }
 
@@ -371,7 +354,7 @@ confirmModal.addEventListener('click', (e) => {
     confirmTel.textContent     = contactForm.tel.value || '（未入力）';
     confirmMessage.textContent = contactForm.message.value || '（未入力）';
 
-    // ✅ confirmを開くたびにエラー初期化
+    // confirmを開くたびにエラー初期化
   resetSubmitError();
 
     // worksと同じ開き方
@@ -391,7 +374,6 @@ confirmModal.addEventListener('click', (e) => {
   submitFinalBtn?.addEventListener('click', async () => {
   const endpoint = contactForm.dataset.endpoint;
   if (!endpoint) {
-    console.warn('data-endpoint が見つからないよ');
     return;
   }
 
@@ -412,7 +394,6 @@ confirmModal.addEventListener('click', (e) => {
     });
 
     if (!res.ok) {
-      console.error('送信失敗:', res.status, res.statusText);
       showSubmitError('送信に失敗しました。時間をおいて再度お試しください。');
       return;
     }
@@ -425,7 +406,6 @@ confirmModal.addEventListener('click', (e) => {
     contactForm.reset();
 
   } catch (err) {
-    console.error('送信エラー:', err);
     showSubmitError('送信中にエラーが発生しました。通信状況をご確認ください。');
   } finally {
     submitFinalBtn.disabled = false;
@@ -480,7 +460,7 @@ if (thanksModal) {
   backToTopBtn?.addEventListener('click', () => {
     closeModal(thanksModal);
 
-    // ここは好み：#top があるならアンカーへ、なければ先頭へ
+    // #top があるならアンカーへ、なければ先頭へ
     const topAnchor = document.getElementById('top');
     if (topAnchor) {
       topAnchor.scrollIntoView({ behavior: 'smooth' });
@@ -490,9 +470,3 @@ if (thanksModal) {
   });
 }
 
-
-
-// dontact　確認
-document.getElementById('debugOpenThanks')?.addEventListener('click', () => {
-  document.getElementById('thanksModal').classList.add('is-active');
-});

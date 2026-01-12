@@ -1,7 +1,5 @@
 @charset "UTF-8";
 
-/* メモめっちゃ入ってるので公開用のと分けた方がいいかも */
-
 /* ======================
 基本設定
 ====================== */
@@ -12,22 +10,17 @@ html {
 body {
   font-family: "Zen Kaku Gothic New", sans-serif;
   color: #333;
-  /*background-image: url("../img/bg_grid.png");  これをタイル画像に */
-  /*background-size: auto;   そのままタイルする場合 */
 
   /* 背景の設定 */
   --grid: 50px;
   --line: #BF3232;
-
   background-image:
     linear-gradient(to right, var(--line) 1px, transparent 1px),
     linear-gradient(to bottom, var(--line) 1px, transparent 1px);
   background-size: var(--grid) var(--grid);
   background-repeat: repeat;
-
 }
 
-/* SPだけ密度UP */
 @media (max-width: 400px){
   body{ 
     background-image:
@@ -61,8 +54,7 @@ section {
   left: 0;
 }
 
-/* あるいは普通に */
-#top { scroll-margin-top: 0; } /* こっちも推奨 */
+#top { scroll-margin-top: 0; } 
 
 /* ======================
 section-card（共通：ベージュ箱）
@@ -73,8 +65,6 @@ section-card（共通：ベージュ箱）
   max-width: 1200px;
   margin-inline: auto;
   width: 100%;
-
-  /* 上下は共通でOKなら */
   padding-block: 80px;
 }
 
@@ -93,11 +83,11 @@ section-card（共通：ベージュ箱）
 }
 
 .section-title-img {
-  display: inline-block; /* text-align:center の影響で自然に中央に寄る */
+  display: inline-block;
 }
 
 .section-title-img img {
-  height: clamp(28px, 6vw, 36px); /* ここは好みで微調整OK */
+  height: clamp(28px, 6vw, 36px);
   width: auto;
   max-width: 100%;
   display: block;
@@ -192,7 +182,6 @@ section-card（共通：ベージュ箱）
   align-items: center;
 }
 
-/* ナビ画像：width固定をやめて「縮む余地」を作る */
 .header-nav__link img{
   height: clamp(12px, 2vw, 18px);
   width: auto;
@@ -218,7 +207,7 @@ section-card（共通：ベージュ箱）
 }
 
 .header--scrolled .header-logo__btn{
-  background: transparent; /* jsで切り替わった時に赤丸が残らないようにする */
+  background: transparent;
 }
 
 .header--scrolled .header-nav__link img,
@@ -240,7 +229,7 @@ section-card（共通：ベージュ箱）
   Hamburger button（ベース定義）
 ========================= */
 .header-hamburger {
-  display: none; /* 800px以下で表示 */
+  display: none;   /* 800px以下で表示 */
   border: none;
   background: transparent;
   padding: 0;
@@ -252,8 +241,8 @@ section-card（共通：ベージュ箱）
 .header-hamburger__inner{
   position: relative;
   display: block;
-  width: 36px;   /* 線のwidthと合わせる */
-  height: 28px;  /* 上下余白込みの箱（好みで調整） */
+  width: 36px;
+  height: 28px;
 }
 
 .header-hamburger__line {
@@ -298,7 +287,7 @@ section-card（共通：ベージュ箱）
 
 .header-hamburger.is-active .header-hamburger__line {
   height: 3.5px;
-  background: #BF3232; /* ×は赤線 */
+  background: #BF3232;   /* ×は赤線 */
 }
 
 /* スクロール後：ハンバーガーの線を赤に（白背景で見えるように） */
@@ -333,10 +322,10 @@ section-card（共通：ベージュ箱）
   padding: 80px 28px;
   border-radius: 30px;
   --panel-border-width: 1.5px;
-  border: var(--panel-border-width) solid #BF3232;   /* headerの角丸付近でpanelのborderが干渉するため、border幅ぶんだけ上に補正、変数は修正時のための定義 */
+  border: var(--panel-border-width) solid #BF3232;
   transform: translateY(calc(-1 * var(--panel-border-width)));
   background: #FFF;
-  z-index: 1; /* overlayより上にしたいなら 1、下にしたいなら消す */
+  z-index: 1;
 }
 
 .header-drawer-nav__list {
@@ -377,7 +366,7 @@ FV
   padding-inline: clamp(8px, 2vw, 24px);
 }
 
-/* フェードイン：fv-inner に統一（fv-stage側は触らない） */
+/* フェードイン：fv-inner に統一 */
 .fv .fv-inner {
   opacity: 0;
   transform: translateY(12px);
@@ -389,19 +378,19 @@ body.is-loaded .fv .fv-inner {
   transform: none;
 }
 
-/* 内側：中身幅担当（1440以上でも暴れない） */
+/* 内側：中身幅 */
 .fv-inner {
   width: 100%;
   max-width: 1440px;
   margin-inline: auto;
 }
 
-/* 左右の並び（まずはflexのまま） */
+/* 左右の並び */
 .fv-main {
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
-  gap: clamp(16px, 3vw, 60px); /* 左右の距離が詰まる時の逃げ */
+  gap: clamp(16px, 3vw, 60px);   /* 左右の距離が詰まる時の逃げ */
 }
 
 /* 左：タイトル帯（主役。縮みすぎないように） */
@@ -432,7 +421,6 @@ body.is-loaded .fv .fv-inner {
   height: auto;
 }
 
-/* SVGパーツの回転中心を自分の中心にするおまじない */
 .fv-icon {
   transform-box: fill-box;
   transform-origin: center;
@@ -472,8 +460,6 @@ body.is-loaded .fv .fv-inner {
   transform: translateY(20px); /* ちょっと下にずらしておく */
 }
 
-/* @keyframes系はfv-innerで指定されていて上書きできない
-（同じブロックでは設定できないのでSVGは階層を分ける？ */
 @keyframes fv-icon--star {
   /* 止まってる時間 */
   0%   { transform: rotate(0deg); }
@@ -487,7 +473,6 @@ body.is-loaded .fv .fv-inner {
 }
 
 /* 三角も同様にお好みで */
-
 @keyframes fv-rotate {
   from { transform: rotate(0deg); }
   to   { transform: rotate(360deg); }
@@ -518,19 +503,15 @@ body.is-loaded .fv .fv-inner {
 /* ======================
 scroll
 ====================== */
-/* FVの基準（もう .fv に position:relative は入ってる前提） */
-
-/* ▼ 置くための箱：ここだけで “場所” を決める */
 .scroll-indicator {
   position: absolute;
-  /* ピンク枠に合わせて数値調整するだけ */
   left: 50%;
-  top: 75%;           /* ←仮。ここを動かす */
-  bottom: 40px;          /* ← ピンク枠に合わせて調整 */
+  top: 75%; 
+  bottom: 40px;
   transform: translateX(-50%);
   z-index: 5;
 
-  /* サイズ（SVG全体の見た目サイズ） */
+  /* サイズ（SVG全体の見た目） */
   width: clamp(80px, 11vw, 120px);
   height: auto;
 }
@@ -542,7 +523,6 @@ scroll
   height: auto;
 }
 
-/* ▼ 矢印だけ動かす（SVG内の矢印pathに class="scroll-indicator__arrow" を付ける） */
 .scroll-indicator__arrow {
   animation: scroll-bounce 1.6s ease-in-out infinite;
   transform-box: fill-box;
@@ -564,14 +544,13 @@ policy
 
 /* 中身：中央寄せ + 可変余白 + 中身の最大幅を固定 */
 .policy-inner {
-  /* margin: 0 120px; ← これをやめる */
-  max-width: 1200px;                  /* 中身が無限に広がらない上限 */
-  margin: 0 auto;                     /* 中央寄せ */
-  padding-inline: clamp(24px, 5vw, 120px); /* まず余白が減る */
+  max-width: 1200px; 
+  margin: 0 auto; 
+  padding-inline: clamp(24px, 5vw, 120px); 
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: clamp(16px, 3vw, 50px);        /* 余白が減る流れに合わせて可変に */
+  gap: clamp(16px, 3vw, 50px); 
 }
 
 /* 左側イラスト */
@@ -609,7 +588,7 @@ policy
   transform: translateY(28px);
   transition:
     opacity 0.7s ease-out,
-    transform 1.2s cubic-bezier(0.12, 1, 0.25, 1); /* ★ここだけ長く */
+    transform 1.2s cubic-bezier(0.12, 1, 0.25, 1);
 }
 
 /* 少し時間差 */
@@ -631,13 +610,8 @@ services
 /* ▼ services セクション全体 */
 #services {
   margin-top: clamp(64px, 10vw, 120px);
-  /*margin: 120px 120px 0;  上120 / 左右120 / 下は自動 */
-  /* padding: 80px; */
-  /* background-color: #FFF6E8;
-  border-radius: 30px; */
 }
 
-/* ✅ policyのときみたいな挙動を「servicesのinner」にだけ付ける */
 #services .inner{
   max-width: 1200px;
   margin-inline: auto;
@@ -652,9 +626,8 @@ services
 }
 
 /* ▼ 各アイテム */
-/* ✅ calc幅をやめて flexで割る（崩れにくい） */
 #services .services-item{
-  width: auto;   /* 既存の width: calc(...) を殺す */
+  width: auto;
   flex: 1;
   min-width: 0;
 }
@@ -672,7 +645,7 @@ services
 }
 
 .services-image img {
-  width: 70%;  /* 白丸の中に収まるよう調整 */
+  width: 70%;
   height: auto;
   display: block;
 }
@@ -694,13 +667,13 @@ services
   height: 25px;
   background-color: #BF3232;
   display: inline-block;
-  border-radius: 50%; /* デフォルト丸 */
-  display: block;          /* まずブロック化 */
-  inline-size: 25px;       /* widthと同じ */
-  aspect-ratio: 1 / 1;     /* 正方形固定 */
-  block-size: auto;        /* heightはaspect-ratioに任せる */
-  flex: 0 0 auto;          /* flexで伸び縮みしない */
-  flex-shrink: 0;          /* 念押し：潰されない */
+  border-radius: 50%;
+  display: block;
+  inline-size: 25px;
+  aspect-ratio: 1 / 1; 
+  block-size: auto; 
+  flex: 0 0 auto;
+  flex-shrink: 0;
 }
 
 /* ▼ itemごとに形を変える（丸 → 四角 → 五角形） */
@@ -731,18 +704,18 @@ services
 ＋アイコン
 ====================== */
 .section-divider-wrapper {
-  --gap: 120px;                 /* まずは固定でOK。後でclampでも可 */
-  --d: clamp(72px, 7vw, 100px);          /* 円の直径：可変 */
+  --gap: 120px; 
+  --d: clamp(72px, 7vw, 100px); 
   --over: clamp(18px, 2vw, 25px);
   position: relative;
-  margin-top: calc(var(--over) * -1);       /* 上に半分食い込ませる */
-  margin-bottom: calc(var(--over) * -1);    /* 下も同じ */
+  margin-top: calc(var(--over) * -1);
+  margin-bottom: calc(var(--over) * -1); 
   z-index: 3;
 }
 
 .section-divider {
   width: var(--d);
-  height: var(--d);          /* ← 正円固定 */
+  height: var(--d);
   margin: 0 auto;
   background-color: #BF3232;
   border-radius: 50%;
@@ -752,14 +725,14 @@ services
 }
 
 .section-divider__icon {
-  position: static;     /* absoluteやめる */
-  transform: none;      /* translateやめる */
+  position: static;
+  transform: none; 
   color: #FFF;
-  font-size: calc(var(--d) * 0.64); /* 0.6〜0.7 好みで */
+  font-size: calc(var(--d) * 0.64);
   font-weight: bold;
   display: block;
   line-height: 1;
-  transform: translateY(-0.05em); /* ← ここを -0.03〜-0.08emで微調整 */
+  transform: translateY(-0.05em); 
 }
 
 /* ======================
@@ -767,8 +740,6 @@ capability
 ====================== */
 #capabilities {
   margin-top: 0;
-  /*margin: 0 120px 0;  上120 / 左右120 / 下は自動 */
-  /* padding: 80px; */
   background-color: #FDF6E8;
   border-radius: 30px;
 }
@@ -790,11 +761,9 @@ capability
 /* 赤ラベル */
 .capability-label {
   display: flex;
-  /* align-self: center; */
   align-items: center;
   gap: 12px;
-  justify-content: center; /* ← これ追加：中身を中央寄せ */
-
+  justify-content: center;
   background-color: #BF3232;
   color: #FFF;
   padding: 15px 30px;
@@ -851,19 +820,17 @@ about
 ====================== */
 #about {
   margin-top: clamp(64px, 10vw, 120px);
-  /* margin: 120px 120px 0; */
-  /* padding: 80px; */
   background-color: #FDF6E8;
   border-radius: 30px;
 }
 
 /* 小見出し プロフィール＋スキルの帯 */
 .about-section-title {
-  display: inline-block;         /* 横幅が中身にフィットする */
-  background-color: #BF3232;     /* 赤 */
-  color: #FFF;                   /* 白文字 */
-  padding: 8px 24px;             /* Figma の pill に近い */
-  border-radius: 8px;            /* 少し丸み */
+  display: inline-block;
+  background-color: #BF3232;
+  color: #FFF; 
+  padding: 8px 24px; 
+  border-radius: 8px; 
   font-size: 20px;
   margin-bottom: 10px;
 }
@@ -874,9 +841,9 @@ about
   align-items: flex-start;
 }
 
-/* 左側のギザギザ丸＋うさぎ */
+/* プロフィール画像 */
 .about-image {
-  flex: 0 0 clamp(180px, 20vw, 228px);      /* 幅固定 228px→900くらいで180になるように調整 */
+  flex: 0 0 clamp(180px, 20vw, 228px); 
 }
 
 .about-image img {
@@ -897,7 +864,7 @@ about
 
 /* 名前行 */
 .fullname {
-  font-size: 28px;      /* お好みで */
+  font-size: 28px; 
   margin-bottom: 16px;
 }
 
@@ -915,12 +882,12 @@ about
 
 /* 波線（SVG） */
 .name-underline {
-  margin: 8px 0 32px;   /* 上下の余白はお好みで */
+  margin: 8px 0 32px;
 }
 
 .name-underline svg {
-  max-width: 765px;     /* figma と同じ横幅上限 */
-  width: 100%;          /* 親いっぱいまで伸びる */
+  max-width: 765px;
+  width: 100%;
   height: auto;
   display: block;
 }
@@ -931,8 +898,6 @@ works
 /* セクション自体の箱（他セクションと同じルール） */
 #works {
   margin-top: clamp(64px, 10vw, 120px);
-  /* margin: 120px 120px 0; */
-  /* padding: 80px; */
   background-color: #FDF6E8;
   border-radius: 30px;
 }
@@ -946,17 +911,15 @@ works
 
 /* 各アイテムのカード */
 .works-item {
-  /* padding: 20px 20px 24px; */
   padding-top: 20px;
   padding-bottom: 24px;
-  background-color: #FDF6E8; /* 中のクリーム色、変えたければここ */
-  transition: opacity 0.3s ease; /* 時間や easing は調整OK */
+  background-color: #FDF6E8;
+  transition: opacity 0.3s ease;
   cursor: pointer;
 }
 
 .works-item:hover {
   opacity: 0.5;
-  /* transform: scale(0.9); */
 }
 
 /* サムネイル */
@@ -989,9 +952,9 @@ works
   align-items: center;
   justify-content: center;
   padding: 6px 18px;
-  min-width: 80px;          /* 「LP」「バナー」みたいな短い文字でもそれなりの幅に */
-  min-height: 32px;         /* 高さをそろえる */
-  border-radius: 10px;      /*まるいピル型 */
+  min-width: 80px; 
+  min-height: 32px; 
+  border-radius: 10px; 
   background-color: #BF3232;
   color: #FFF;
   font-size: 14px;
@@ -999,14 +962,12 @@ works
   letter-spacing: .05em;
   box-sizing: border-box;
   text-align: center;
-  /* 折り返したくないなら ↓ を付ける（PC前提ならアリ） */
-  /* white-space: nowrap; */
 }
 
 /* 「実績をもっと見る」ボタン */
 .works-more-btn {
-  display: block;        /* 横幅を制御したい場合 */
-  margin: 50px auto 0 auto;     /* 中央揃え */
+  display: block;
+  margin: 50px auto 0 auto;
   padding: 14px 28px;
   background-color: #BF3232;
   color: #fff;
@@ -1024,9 +985,9 @@ works
 }
 
 #worksToggleBtn {
-  border-radius: 50px;  /* 特別な丸みにしたい */
-  padding: 16px 40px;   /* このボタンだけ大きさ調整 */
-  color: #FDF6E8;       /* このボタンだけ色変更 */
+  border-radius: 50px; 
+  padding: 16px 40px;
+  color: #FDF6E8;
   border: 2px solid #BF3232;
 
 }
@@ -1044,8 +1005,6 @@ contact
 ====================== */
 #contact {
   margin-top: clamp(64px, 10vw, 120px);
-  /* margin: 120px 120px 0; */
-  /* padding: 80px; */
   background-color: #FDF6E8;
   border-radius: 30px;
 }
@@ -1053,26 +1012,25 @@ contact
 /* contactの中身だけ細くする */
 #contact .inner--card{
   max-width: 768px;
-  min-width: 0; /* こっちの方が重要：はみ出し防止 */
+  min-width: 0;
   margin-inline: auto;
-  padding-inline: clamp(40px, 7vw, 70px); /* だいたい+10〜15px体感になる */
+  padding-inline: clamp(40px, 7vw, 70px);
 }
 
 /* リード文 */
 .contact-lead {
   margin-inline: auto;
-  /* align-items: center; */
   margin-bottom: 60px;
   line-height: 1.8;
   color: #4A4A4A;
-  width: fit-content;   /* ← 箱を内容に合わせて縮める */
-  max-width: 32em;          /* ← 行幅を制御（超重要） */
-  text-align: left;         /* ← 文字は左寄せ */
+  width: fit-content;
+  max-width: 32em;
+  text-align: left; 
   font-size: clamp(14px, 2.8vw, 16px);
 }
 
 /* -------------------------
-   フォーム全体
+  フォーム全体
 ------------------------- */
 .contact-form {
   width: 100%;
@@ -1081,20 +1039,18 @@ contact
 /* 1項目のブロック */
 .form-group {
   display: grid;
-  gap: 16px;              /* ラベルと入力欄の距離 */
-  margin-bottom: 24px;   /* 各項目の間隔（好みで） */
+  gap: 16px;
+  margin-bottom: 24px;
 }
-
 
 /* ラベル行（必須バッジもここに） */
 .form-label {
-  width: 220px; /* ← ここで揃う！必要なら後で微調整可能 */
+  width: 220px;
   display: inline-flex;
   align-items: center;
   justify-content: baseline;
   gap: 16px;
   font-size: 16px;
-  /*color: #4A3E30;  デザインに合わせて調整してOK */
   letter-spacing: 0.03em;
 }
 
@@ -1131,10 +1087,10 @@ contact
   background: #FFF;
   font-size: 16px;
   height: 180px;
-  resize: vertical; /* 必要なら変更可 */
+  resize: vertical;
 }
 
-/* placeholderの色（今の薄いグレーに合わせる） */
+/* placeholder */
 .form-input::placeholder,
 .form-textarea::placeholder {
   color: #B8B8B8;
@@ -1170,16 +1126,16 @@ PAGE TOPボタン
 ====================== */
 /* ラッパー：右寄せ＆位置決め（x方向ここで合わせる） */
 .page-top-wrapper {
-  max-width: 1200px;              /* ← section-card と揃える */
-  margin: 40px auto;              /* 上下余白＋中央寄せ */
+  max-width: 1200px; 
+  margin: 40px auto;
   display: flex;
   justify-content: flex-end;
 }
 
 .page-top {
   display: block;
-  width: clamp(76px, 18vw, 100px);   /* ← 好きに調整OK（今の100pxベースでclamp化） */
-  aspect-ratio: 1 / 1;              /* 正円を安定させる */
+  width: clamp(76px, 18vw, 100px); 
+  aspect-ratio: 1 / 1; 
   text-decoration: none;
   transition: opacity 0.5s ease, transform 0.3s ease;
 }
@@ -1201,16 +1157,16 @@ PAGE TOPボタン
 /* モーダルの土台（最初は非表示） */
 .modal {
   position: fixed;
-  inset: 0;                               /* top/right/bottom/left: 0 の短縮 */
+  inset: 0; 
 
-  display: flex;                          /* アニメーション表示のためnoneをfkexに */
+  display: flex; 
   opacity: 0;
   visibility: hidden;
   pointer-events: none;
 
   align-items: center;
   justify-content: center;
-  background-color: rgba(0, 0, 0, 0.7);   /* うっすら黒背景 */
+  background-color: rgba(0, 0, 0, 0.7);
   z-index: 1000;
 }
 
@@ -1224,14 +1180,14 @@ PAGE TOPボタン
 
 /* 中身のカード部分（白いウィンドウ） */
 .modal-content {
-  background-color: #FFF;                 /* ウィンドウは白 */
+  background-color: #FFF; 
   border-radius: 30px;
-  padding: clamp(24px, 6vw, 50px);           /* paddingも画面幅に応じて可変 */
-  width: min(1200px, calc(100% - clamp(24px, 6vw, 80px)));        /* 左右余白を可変（=窓の縮み方を統一） */
-  max-height: 85vh;                       /* 画面の 8 割まで */
+  padding: clamp(24px, 6vw, 50px);
+  width: min(1200px, calc(100% - clamp(24px, 6vw, 80px)));
+  max-height: 85vh;
   box-sizing: border-box;
-  position: relative;                     /* ×ボタンの基準にする */
-  overflow: hidden;                       /* 全体スクロールはさせず、中の要素側で制御 */
+  position: relative; 
+  overflow: hidden; 
 
   opacity: 0;
   transition: opacity 0.8s ease;
@@ -1265,9 +1221,9 @@ PAGE TOPボタン
   position: absolute;
   top: 50%;
   left: 50%;
-  width: 36px; /* ×の大きさ */
-  height: 4px; /* 線の太さ */
-  background: #FDF6E8;       /* 線の色 */
+  width: 36px;
+  height: 4px; 
+  background: #FDF6E8; 
   border-radius: 2px;
   transform: translate(-50%, -50%);
 }
@@ -1289,19 +1245,18 @@ PAGE TOPボタン
 ====================== */
 /* タイトル＋タグ（左上ブロック） */
 .modal-works-header {
-  max-width: 400px;       /* 左側に収まる幅 */
+  max-width: 400px;
   margin-bottom: clamp(8px, 3vw, 18px);
 }
 
 .modal-works-title {
-  margin: 0 0 16px;       /* 上は 0 にして、下だけ余白 */
+  margin: 0 0 16px; 
   font-size: clamp(18px, 2.2vw, 24px);
 }
 
 .modal-works-tag-list {
   display: flex;
   gap: 12px;
-  /* margin-bottom: 32px; */
 }
 
 .modal-works-tag {
@@ -1309,9 +1264,9 @@ PAGE TOPボタン
   align-items: center;
   justify-content: center;
   padding: clamp(5px, 0.8vw, 6px) clamp(12px, 1.8vw, 18px);
-  min-width: clamp(64px, 8vw, 80px);        /* 「LP」「バナー」など短い文字でもそれなりの幅に */
-  min-height: 32px;       /* 高さをそろえる */
-  border-radius: 10px;    /* まるいピル型 */
+  min-width: clamp(64px, 8vw, 80px); 
+  min-height: 32px; 
+  border-radius: 10px; 
   background-color: #BF3232;
   color: #FFF;
   font-size: clamp(12px, 1.4vw, 14px);
@@ -1323,7 +1278,7 @@ PAGE TOPボタン
 
 /* 左：サムネ ／ 右：テキストを横並びにする親 */
 .modal-works-body {
-  display: grid;      /* 2カラムを同率で縮める（右だけ潰れないようにする） */
+  display: grid;
   grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
   gap: clamp(16px, 3vw, 40px);
   align-items: start;
@@ -1370,12 +1325,11 @@ PAGE TOPボタン
 /* 右側テキストエリア（ここだけスクロールさせる） */
 .modal-works-description {
   flex: 1;
-  height: 100%;     /* 同じく親に合わせる */
-  /* max-height: calc(90vh - 100px);        90vh - 上50px - 下50px */
+  height: 100%;
   max-height: calc(85vh - (clamp(24px, 6vw, 50px) * 2));
   
   min-width: 0;
-  overflow-y: auto;  /* 右だけ中身スクロール */
+  overflow-y: auto; 
   padding-right: 8px;
 }
 
@@ -1383,9 +1337,6 @@ PAGE TOPボタン
 .modal-works-description__item {
   padding: 20px 20px 0 20px;
   background-color: #FFF;
-  /* 上方向だけマージンをつけたい場合は
-     .modal-works-description__item + .modal-works-description__item { margin-top: 20px; }
-     みたいに「隣接」セレクタで足すと安全 */
 }
 
 .modal-works-description__item:first-child {
@@ -1409,15 +1360,14 @@ PAGE TOPボタン
 
 /* 制作仕様（ul）のスタイル */
 .modal-spec-list {
-  list-style: none;       /* デフォルトのドットを消す */
+  list-style: none; 
   margin: 0;
   padding-left: 0;
 }
 
 .modal-spec-list li {
   position: relative;
-  padding-left: 14px;     /* ハイフン分の余白 */
-  /* margin-bottom: 8px;     各行の間隔 */
+  padding-left: 14px; 
   font-size: 14px;
   line-height: 1.8;
 }
@@ -1428,7 +1378,7 @@ PAGE TOPボタン
   position: absolute;
   left: 0;
   top: 0;
-  color: #333;         /* 色は好きに変えていいよ（赤系にした） */
+  color: #333; 
   font-weight: 400;
 }
 
@@ -1438,16 +1388,16 @@ PAGE TOPボタン
 ====================== */
 .modal-illustrations {
   display: flex;
-  gap: 24px;               /* 画像同士のすき間 */
-  padding: 16px;           /* ← 図の「黄色い外枠」 */
-  margin-bottom: 20px;     /* 下だけ少し離す（説明文との距離） */
-  box-sizing: border-box;  /* padding 込みで扱いやすくする */
+  gap: 24px; 
+  padding: 16px;
+  margin-bottom: 20px;
+  box-sizing: border-box;
 }
 .modal-illustrations img {
   flex: 1 1 0;
-  max-width: calc((100% - 24px) / 2);   /* gapぶん引いた残りを半分ずつ */
+  max-width: calc((100% - 24px) / 2);
   height: auto;
-  margin: 0;                             /* 画像自体に余白は付けない */
+  margin: 0;
   display: block;
 }
 
@@ -1457,7 +1407,7 @@ PAGE TOPボタン
 ====================== */
 /* LPサムネ：350 × 約 218px 想定 */
 .modal-works-main--wide .modal-works-thumb img {
- width: min(100%, 520px);  /* 左カラム内で収まる */
+ width: min(100%, 520px); 
   height: auto;
   object-fit: contain;
   display: block;
@@ -1467,7 +1417,7 @@ PAGE TOPボタン
 .modal-works-main--wide .modal-works-btn {
   display: inline-flex;
   justify-content: center;
-  align-self: center;   /* 親の中でボタンだけ水平中央 */
+  align-self: center;
   margin-top: clamp(16px, 3vw, 32px);
   padding: clamp(12px, 2vw, 18px) clamp(20px, 4vw, 40px);
   border-radius: 50px;
@@ -1482,7 +1432,6 @@ PAGE TOPボタン
   box-sizing: border-box;
 }
 
-/* ホバー時のスタイルはあとで自分で設定する前提 */
 .modal-works-btn:hover {
   border: 2px solid #BF3232;
   background-color: #BF3232;
@@ -1494,14 +1443,14 @@ PAGE TOPボタン
   共通モーダルCSSの「下」に追記
 ====================== */
 .modal-variation-img {
-  display: block;                /* 中央寄せするために block に */
-  max-width: 350px;              /* バナーの最大幅（お好みで） */
-  width: 100%;                   /* 親幅に合わせて縮む */
-  margin: 20px auto;           /* 上だけ20px、左右autoで中央寄せ、下0 */
+  display: block; 
+  max-width: 350px;
+  width: 100%; 
+  margin: 20px auto; 
 }
 
 #modal-craftfair .modal-variation-img {
-  max-width: 100%;  /* craftfair の横長版に合わせた幅 */
+  max-width: 100%; 
   height: auto;
   display: inline-block;
   margin: 20px auto 0;
@@ -1526,7 +1475,7 @@ PAGE TOPボタン
 ====================== */
 /* このモーダルだけカード幅を少し細くする */
 #confirmModal .modal-content {
-  max-width: 900px;       /* お好みで 800〜900px くらいでもOK */
+  max-width: 900px; 
 }
 
 /* 中身のレイアウト全体（縦並び） */
@@ -1534,7 +1483,7 @@ PAGE TOPボタン
   color: #333333;
   display: flex;
   flex-direction: column;
-  max-height: calc(90vh - 100px); /* 上下の余白ぶんを引いた高さ */
+  max-height: calc(90vh - 100px); 
 }
 
 /* 右カラムだけスクロール（PC〜タブレット想定） */
@@ -1560,21 +1509,20 @@ PAGE TOPボタン
 /* 一覧部分：ここだけスクロールさせる */
 .modal-contact__list {
   margin: 0 0 24px;
-  padding-right: 8px;     /* スクロールバーぶんの余白 */
-  flex: 1;                /* 余った高さをここに割り当てる */
-  overflow-y: auto;       /* 縦スクロールON */
+  padding-right: 8px; 
+  flex: 1; 
+  overflow-y: auto; 
 }
 
 /* 1行分（ラベル＋内容） */
 .modal-contact__row {
   display: grid;
-  grid-template-columns: 140px 1fr;  /* 左ラベル / 右本文 */
+  grid-template-columns: 140px 1fr;
   column-gap: 24px;
   row-gap: 8px;
   font-size: 0.9rem;
   line-height: 1.8;
   padding: 8px 0;
-  /* border-bottom: 1px solid #eee; */
 }
 
 /* 行ごとの縞背景 */
@@ -1590,10 +1538,10 @@ PAGE TOPボタン
 
 .modal-contact__row dd {
   margin: 0;
-  white-space: pre-wrap;      /* 改行保持（今のままでOK） */
-  overflow-wrap: anywhere;    /* 長い英数字も強制的に折る */
-  word-break: break-word;     /* 保険（古めブラウザ寄り） */
-  min-width: 0;               /* grid/flex内で“はみ出し”防止 */
+  white-space: pre-wrap; 
+  overflow-wrap: anywhere; 
+  word-break: break-word; 
+  min-width: 0;
 }
 
 /* ボタン並び（カード下部に固定されるイメージ） */
@@ -1682,11 +1630,11 @@ PAGE TOPボタン
   }
 
   .modal-contact__buttons .modal-btn {
-    width: min(100%, 320px); /* ほどよく横に広い */
+    width: min(100%, 320px); 
   }
 
   .modal-btn--submit {
-    order: -1;  /* btnの順番を変える（ここでは「送信」の方を先にする） */
+    order: -1; 
   }
 }
 
@@ -1709,7 +1657,7 @@ PAGE TOPボタン
 }
 
 .modal-thanks__heading {
-  margin-top: 12px;   /* 8〜12px がおすすめ */
+  margin-top: 12px;
   font-weight: 500;
   font-size: 1.25rem;
   line-height: 1.6;
@@ -1717,12 +1665,11 @@ PAGE TOPボタン
 
 .modal-thanks__message {
   margin-top: 32px;
-  max-width: 600px;      /* 好きな読みやすい幅 */
-  margin-inline: auto;   /* ブロック自体を中央へ */
+  max-width: 600px; 
+  margin-inline: auto; 
 }
 
 .modal-thanks__message p {
-  /* font-size: clamp(14px, 1.6vw, 16px); */
   font-size: 0.9rem;
   line-height: 1.8;
 }
@@ -1762,7 +1709,7 @@ PAGE TOPボタン
 @media (max-width: 480px) {
   #confirmModal.modal.is-active,
   #thanksModal.modal.is-active{
-    padding-top: 88px;  /* close避け。60→88 みたいに増やす */
+    padding-top: 88px;
     padding-bottom: 24px;
   }
 
@@ -1792,19 +1739,19 @@ footer p {
 LP水回り
 下層(mizumawari.html）
 ====================== */
-/* LP用カード（section-cardと同思想） */
+/* LP用カード（section-cardと同じ） */
 .lp-visual {
   max-width: 1200px;
   margin-inline: auto;
   width: 100%;
-  margin-top: clamp(120px, 18vw, 180px); /* fvの数値参考にした */
+  margin-top: clamp(120px, 18vw, 180px);
 }
 
 /* --------------------------------------------------
   LP詳細ページ：水回りLP
   既存のstyle.cssの一番下あたりに足すイメージ
 -------------------------------------------------- */
-/* ▼ 中央寄せの箱（topの.section-inner的な役割） */
+/* ▼ 中央寄せの箱（topの.section-innerと同じ） */
 /* 中身の左右余白 */
 .lp-visual__inner {
   margin-inline: auto;
@@ -1814,16 +1761,13 @@ LP水回り
   gap: 24px;
 }
 
-/* ▼ 「全体図」ラベル
-   見た目はmodal-works-description__labelを借りるけど変更
-*/
+/* ▼ 「全体図」ラベル */
 .lp-visual__label {
-  margin-block: 40px 0; /* 上だけ可変、下は0 */
-  margin-inline: clamp(24px, 5vw, 80px) 0; /* 左だけ可変、右は0 */
+  margin-block: 40px 0;
+  margin-inline: clamp(24px, 5vw, 80px) 0;
 }
 
 /* ▼ 白いフレーム（PC＋SP画像をまとめて入れる箱） */
-/* frame 自体は「白いカード」の箱 → flexじゃなくてOK */
 .lp-visual__frame {
   background-color: #FFF;
   border-radius: 30px;
@@ -1831,10 +1775,9 @@ LP水回り
   position: relative;
 }
 
-/* 画像の並びだけ flex にする */
 .lp-visual__body {
-  max-width: 960px; /* ←ここで“見せたい幅”を決める */
-  margin-inline: auto;   /* ★これ追加：中央寄せの本体 */
+  max-width: 960px;
+  margin-inline: auto; 
   display: flex;
   gap: clamp(24px, 4vw, 40px);
   padding: clamp(24px, 5vw, 80px);
@@ -1849,39 +1792,38 @@ LP水回り
 768pxレイアウト
 ====================== */
 @media (max-width: 768px) {
-  .wrapper { padding-inline: 20px; } /* ←ここで固定 1440のときの最低値を参考に算出 */
+  .wrapper { padding-inline: 20px; } 
 }
 
 /* ======================
    policy（768px以下）
-   ※「ここだけ左右paddingを50px」に寄せる版
 ====================== */
 @media (max-width: 768px) {
 
-  /* セクション自体：上下は維持、左右はpolicy内側で管理 */
+  /* セクション自体 */
   #policy {
-    padding: 80px 0;   /* fvとの兼ね合いで80pxから変更している */
+    padding: 80px 0;
   }
 
   /* 1カラム化：縦積み */
   .policy-inner {
-    max-width: 600px;      /* ←SPで横に広がりすぎない保険（好みで調整OK） */
+    max-width: 600px;
     margin: 0 auto;
 
-    padding-inline: clamp(16px, 6vw, 50px);  /* ←ここだけ左右50（希望どおり固定） */
+    padding-inline: clamp(16px, 6vw, 50px);
 
     display: flex;
     flex-direction: column;
-    align-items: center;   /* 中央寄せ */
+    align-items: center;
     justify-content: flex-start;
-    gap: 16px;             /* 画像とテキストの間　fvとの兼ね合いで32pxから変更している */
+    gap: 16px; 
   }
 
-  /* 画像：横幅は100%でOK（大きすぎるならmax-widthで締める） */
+  /* 画像：横幅は100% */
   .policy-image {
     flex: none;
     width: 100%;
-    max-width: clamp(360px, 60vw, 500px);     /* ←スクショの雰囲気寄せ（不要なら消してOK） */
+    max-width: clamp(360px, 60vw, 500px); 
   }
 
   .policy-image img {
@@ -1896,7 +1838,7 @@ LP水回り
   }
 
   .policy-text h2 {
-    font-size: clamp(20px, 5vw, 24px);   /* fvとの兼ね合いで24pxから変更している */
+    font-size: clamp(20px, 5vw, 24px); 
     line-height: 1.7;
     margin-bottom: 16px;
     text-align: center;
@@ -1915,19 +1857,14 @@ services（768px以下：1カラム）
 ====================== */
 @media (max-width: 768px) {
 
-  /* innerの左右余白：SP寄りに安定させる（必要なら）
-  #services .inner{
-    /* padding-inline: clamp(16px, 4vw, 28px);
-  } */
-
   /* 3カラム → 1カラム */
   .services-inner{
     flex-direction: column;
-    align-items: center;               /* カード群を中央寄せ */
-    gap: 48px;                         /* 縦の間隔（好みで） */
+    align-items: center;
+    gap: 48px; 
   }
 
-  /* 各アイテム：幅に上限を持たせて“デカすぎ”を防ぐ */
+  /* 各アイテム：幅に上限を持たせる */
   #services .services-item{
     width: 100%;
     max-width: clamp(420px, 80vw, 560px);
@@ -1936,13 +1873,13 @@ services（768px以下：1カラム）
 
   /* 画像（白丸）：SPで強くなりすぎないように調整 */
   .services-image{
-    width: clamp(180px, 50vw, 280px);  /* ←「imgがデカすぎる」を抑える */
+    width: clamp(180px, 50vw, 280px); 
     margin: 0 auto 24px;
   }
 
-  /* 見出し：中央はそのままでOK */
+  /* 見出し：中央 */
   .services-title{
-    font-size: 20px;                   /* 22→少しだけ落とす（任意） */
+    font-size: 20px; 
     margin-bottom: 16px;
   }
 
@@ -1961,22 +1898,20 @@ about SP（655px以下で1カラム）
   /* 2カラム → 1カラム */
   .about-inner{
     flex-direction: column;
-    align-items: center;          /* 画像と名前を中央に寄せる */
-    gap: 40px;                    /* 80は広いので詰める */
+    align-items: center; 
+    gap: 40px; 
   }
 
-  /* 箱は中央寄せの土台だけ作る（サイズは持たせない） */
   .about-image{
     display: flex;
     justify-content: center;
     width: 100%;
   }
 
-  /* “画像そのもの”の大きさを制御する */
   .about-image img{
     width: clamp(180px, 40vw, 240px);
-    aspect-ratio: 1 / 1;  /* 正方形固定 */
-    height: auto;         /* aspect-ratioに任せる */
+    aspect-ratio: 1 / 1;
+    height: auto; 
     display: block;
     object-fit: contain;
   }
@@ -1991,18 +1926,18 @@ about SP（655px以下で1カラム）
     display: flex;
     justify-content: center;
     align-items: baseline;
-    gap: 24px;            /* ← ここで日英の間隔調整 */
+    gap: 24px;
     text-align: center;
     margin-bottom: 20px;
   }
 
   .name-ja,
   .name-en{
-    display: inline;      /* block をやめる */
+    display: inline;
     margin-right: 0;
     font-size: clamp(24px, 6vw, 32px);
     line-height: 1.2;
-    white-space: nowrap;  /* ← 変な途中改行を防ぐ */
+    white-space: nowrap;
   }
 
   .name-en{
@@ -2013,7 +1948,6 @@ about SP（655px以下で1カラム）
   .name-underline{
     margin: 12px auto 24px;
     width: 100%;
-   /* max-width: 420px;             ここは好みで 360〜480 くらい */
   }
 
   /* 赤帯（見出し）：中央寄せで “2行化”しづらく */
@@ -2021,7 +1955,7 @@ about SP（655px以下で1カラム）
     display: inline-block;
     text-align: center;
     margin-inline: auto;
-    font-size: 18px;              /* 20→少し落として事故防止 */
+    font-size: 18px;
     padding: 8px 20px;
   }
 
@@ -2035,25 +1969,22 @@ about SP（655px以下で1カラム）
 /* ======================
 works（745px以下：1カラム）
 ====================== */
-
-/* 1カラムに落とすBPは「2カラムがしんどくなった瞬間」でOK。
-   例として 745px にしてるけど、rottoの判断で調整してOK */
 @media (max-width: 745px) {
   /* 一覧：1カラム */
   .works-list{
     grid-template-columns: 1fr;
-    gap: clamp(16px, 4vw, 28px); /* 1カラム時は“間”を少し気持ちよく */
+    gap: clamp(16px, 4vw, 28px); 
   }
 
-  /* アイテム：左右の見た目を揃えたいなら余白を少し増やす */
+  /* アイテム */
   .works-item{
-    max-width: 520px;          /* ここは好みで 480〜560 くらい */
+    max-width: 520px; 
     margin-inline: auto;
     width: 100%;
     padding: clamp(16px, 4vw, 24px);
   }
 
-  /* サムネ：角丸や枠はそのままでOK（width:100%が効く） */
+  /* サムネ */
   .works-thumb img{
     width: 100%;
     height: auto;
@@ -2076,12 +2007,12 @@ works（745px以下：1カラム）
 
   /* タグ：文字が長い時の破綻を防ぐ */
   .works-tag{
-    min-width: 0;           /* “最小80px縛り”を解除して潰れやすくする */
-    padding: 6px 14px;      /* 少しだけ詰める */
+    min-width: 0;
+    padding: 6px 14px;
     font-size: 13px;
     border-radius: 10px;
     max-width: 100%;
-    word-break: keep-all;   /* 日本語の変な分割を避ける */
+    word-break: keep-all;
   }
 }
 
@@ -2090,7 +2021,6 @@ works（745px以下：1カラム）
 768px以下：SPヘッダーに切り替え（カプセルは残す）
 ====================== */
 @media (max-width: 768px) {
-  /* ナビは消す（方針通り） */
   .header-nav {
     display: none;
   }
@@ -2099,17 +2029,15 @@ works（745px以下：1カラム）
     height: 64px;
   }
 
-  /* ハンバーガーは出す（条件を 768 に） */
+  /* ハンバーガー */
   .header-hamburger {
     display: grid;
     place-items: center;
 
-    /* 押しやすいサイズはそのまま採用 */
     width: 64px;
     height: 64px;
   }
 
-  /* ロゴ側も同じスケールに合わせる（いまの800px用を流用OK） */
   .header-logo {
     flex: 0 0 64px;
     width: 64px;
@@ -2121,7 +2049,6 @@ works（745px以下：1カラム）
   .header-logo__btn {
     width: 64px;
     height: 64px;
-    /* background: #BF3232; */
     display: grid;
     place-items: center;
   }
@@ -2131,30 +2058,26 @@ works（745px以下：1カラム）
     height: 40px;
   }
 
-  /* カプセルは消さない（透明化しない・角丸ゼロにしない） */
   .header-inner {
     justify-content: space-between;
     /* SPは左右余白を少し詰める（でもカプセル維持） */
     padding-inline: clamp(12px, 4vw, 24px);
   }
 
-  /* スクロール後も “カプセルの中身” だけ白に */
   .header--scrolled .header-inner {
     background-color: #FFF;
   }
 
-  /* カプセル時：hoverでlogoを薄くしない */
   .header-nav__link:hover,
   .header-logo:hover {
     opacity: 1;
   }
 }
 
-/* 500以下だけ、もう一段だけ薄くする */
 @media (max-width: 600px) {
   .header-inner { 
     height: 56px; 
-    padding-inline: 24px; /* clampのままでもいいけど、ここは固定の方が安定 */
+    padding-inline: 24px;
   }
 
   .header-logo,
@@ -2169,7 +2092,7 @@ works（745px以下：1カラム）
   }
 
   .header-logo__btn img {
-    width: 34px;   /* ここは好みで 32〜36 */
+    width: 34px;
     height: 34px;
   }
 }
@@ -2177,7 +2100,6 @@ works（745px以下：1カラム）
 /* ======================
 FV variant 切り替え
 ====================== */
-
 /* まず全部非表示 */
 .fv-variant {
   display: none;
@@ -2211,12 +2133,11 @@ SP：〜500px
 }
 
 
-
-/* 768px 以下 */
+/* 768px 以下のmargin指定 */
 @media (max-width: 768px) {
   .fv {
     margin-top: clamp(100px, 18vw, 130px);
-    margin-bottom: clamp(16px, 2vw, 60px); /* 例：ここは見ながら微調整 */
+    margin-bottom: clamp(16px, 2vw, 60px);
   }
 }
 
@@ -2231,37 +2152,35 @@ scroll
 }
 
 /* ======================
-  WORKS（一覧） タイトル＆タグ：960px以下で少し小さく
-  ※元CSSの「後ろ」に追記して上書き
+works
 ====================== */
 @media (max-width: 960px) {
 
   /* タイトル（h3.works-title） */
   .works-title{
-    font-size: 1.25rem;     /* 1.4rem → 1.25rem */
-    margin-top: 20px;       /* 24px → 20px（任意：間延び防止） */
-    margin-bottom: 12px;    /* 16px → 12px（任意） */
+    font-size: 1.25rem; 
+    margin-top: 20px;
+    margin-bottom: 12px; 
   }
 
   /* タグ並び */
   .works-tag-list{
-    gap: 12px;              /* 16px → 12px（任意） */
-    margin-top: 6px;        /* 8px → 6px（任意） */
+    gap: 12px; 
+    margin-top: 6px; 
   }
 
   /* タグ本体 */
   .works-tag{
-    font-size: 13px;        /* 14px → 13px */
-    padding: 5px 14px;      /* 6px 18px → 5px 14px */
-    min-width: 72px;        /* 80px → 72px */
-    min-height: 28px;       /* 32px → 28px */
-    border-radius: 9px;     /* 10px → 9px（誤差レベルだけど締まる） */
+    font-size: 13px; 
+    padding: 5px 14px; 
+    min-width: 72px; 
+    min-height: 28px; 
+    border-radius: 9px; 
   }
 }
 
-
 /* ======================
-capabilities（横並びが厳しくなる幅）
+capabilities
 ====================== */
 @media (max-width: 820px) {
   .capability-item {
@@ -2271,10 +2190,9 @@ capabilities（横並びが厳しくなる幅）
 }
 
 @media (max-width: 650px){
-  /* 黄色い“中身ブロック”の幅をここで作る */
   .capabilities-inner{
-   max-width: clamp(300px, 90vw, 500px);     /* ← ここが「h2と同じくらい」のつもりの幅になる */
-    margin-inline: auto;  /* ← 中央寄せ */
+   max-width: clamp(300px, 90vw, 500px);
+    margin-inline: auto;
   }
 
   .capability-item{
@@ -2285,10 +2203,8 @@ capabilities（横並びが厳しくなる幅）
 
   .capability-label {
     min-width: 280px;
-    /* max-に合わせている そのままだとデフォルトのmin-で幅が大きすぎる */
   }
 
-  /* labelとpを「中身ブロック幅」に揃える */
   .capability-label,
   .capability-item p{
     width: 100%;
@@ -2301,7 +2217,6 @@ capabilities（横並びが厳しくなる幅）
   }
 }
 
-/* ラベル文字だけ少しだけ縮める（特に375周辺） */
 @media (max-width: 390px) {
   .capability-title {
     font-size: 18px;
@@ -2318,11 +2233,10 @@ modal共通（820pxで1カラム）
 /* 820以下で1カラム化 */
 @media (max-width: 820px){
   .modal {
-    align-items: flex-start; /* center をやめる */
-    justify-content: center; /* 横は中央のままでOK */
-    padding: clamp(16px, 4vw, 28px); /* 上下左右の逃げ */
-    /*overflow-y: auto;  画面に収まらない時は「外枠」をスクロールさせられるように */
-    overflow: hidden; /* ← モーダル外はスクロールさせない（×がズレるの防止） */
+    align-items: flex-start;
+    justify-content: center;
+    padding: clamp(16px, 4vw, 28px);
+    overflow: hidden;
   }
 
   .modal-works-main--wide{
@@ -2330,34 +2244,32 @@ modal共通（820pxで1カラム）
   }
 
   .modal-content {
-    margin-top: clamp(60px, 6vw, 80px);      /* closeとの距離を取る */
+    margin-top: clamp(60px, 6vw, 80px);
     padding: clamp(40px, 6vw, 50px);
-    max-height: none;      /* ← 高さを内容量に任せる */
+    max-height: none;
     height: auto;
-    max-height: calc(100dvh - 120px); /* padding 60px×2 ぶん引く */
-    display: flex;       /* ← 中のスクロール要素を効かせるため */
+    max-height: calc(100dvh - 120px);
+    display: flex;
     flex-direction: column;
   }
 
   .modal-works {
-    overflow-y: auto;      /* ← 中にスクロールバーを置く */
+    overflow-y: auto;
   }
 
-  /* 1カラム化（あなたの設計通り） */
+  /* 1カラム化 */
   .modal-works-body{
     grid-template-columns: 1fr;
     gap: 40px;
 
-    /* これが無いと「スクロールできない」事故が起きやすい */
     min-height: 0;
 
-    /* スクロールバーが本文に食い込むのを防ぐ（任意） */
     padding-right: 12px;
     scrollbar-gutter: stable;
   }
 
   .modal-works-main {
-    padding-inline: 20px; /* ←ここを下の見た目に合わせて調整 */
+    padding-inline: 20px;
     box-sizing: border-box;
   }
 
